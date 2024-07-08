@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Aquila Favonia",
         "rarity": 5,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 48,
         "effect": "Increases ATK by 20%. On hit, attacks against opponents with less than 30% HP increase all party members' ATK by 40% for 12s. Can only occur once every 30s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Aquila_Favonia.png"
@@ -12,7 +12,7 @@
         "id": 2,
         "name": "Skyward Blade",
         "rarity": 5,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 46,
         "effect": "CRIT Rate increased by 4%. Gains Skypiercing Might upon using an Elemental Burst: Increases Movement SPD by 10%, increases ATK SPD by 10%, and increases the DMG of Normal and Charged Attack hits by 20% for 12s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Skyward_Blade.png"
@@ -21,7 +21,7 @@
         "id": 3,
         "name": "Primordial Jade Cutter",
         "rarity": 5,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 44,
         "effect": "HP increased by 20%. Additionally, provides an ATK Bonus based on 1.2% of the wielder's Max HP.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Primordial_Jade_Cutter.png"
@@ -30,7 +30,7 @@
         "id": 4,
         "name": "Summit Shaper",
         "rarity": 5,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 46,
         "effect": "Increases Shield Strength by 20%. Scoring hits on opponents increases ATK by 4% for 8s. Max 5 stacks. Can only occur once every 0.3s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Summit_Shaper.png"
@@ -39,7 +39,7 @@
         "id": 5,
         "name": "The Black Sword",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 42,
         "effect": "Increases DMG dealt by Normal and Charged Attacks by 20%. Additionally, regenerates 60% of ATK as HP when Normal and Charged Attacks score a CRIT Hit. This effect can occur once every 5s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Black_Sword.png"
@@ -48,7 +48,7 @@
         "id": 6,
         "name": "Prototype Rancour",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 44,
         "effect": "On hit, Normal or Charged Attacks increase ATK and DEF by 4% for 6s. Max 4 stacks. This effect can only occur once every 0.3s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Prototype_Rancour.png"
@@ -57,7 +57,7 @@
         "id": 7,
         "name": "Lion's Roar",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 42,
         "effect": "Increases DMG against enemies affected by Pyro or Electro by 20%.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Lion's_Roar.png"
@@ -66,7 +66,7 @@
         "id": 8,
         "name": "The Alley Flash",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 44,
         "effect": "Increases DMG dealt by the character equipping this weapon by 12%. Taking DMG disables this effect for 5s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Alley_Flash.png"
@@ -75,7 +75,7 @@
         "id": 9,
         "name": "Favonius Sword",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 41,
         "effect": "CRIT hits have a 60% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Favonius_Sword.png"
@@ -84,7 +84,7 @@
         "id": 10,
         "name": "Royal Longsword",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 42,
         "effect": "Upon damaging an opponent, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Royal_Longsword.png"
@@ -93,7 +93,7 @@
         "id": 11,
         "name": "Sacrificial Sword",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 41,
         "effect": "After damaging an opponent with an Elemental Skill, the skill has a 40% chance to end its own CD. Can only occur once every 30s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Sacrificial_Sword.png"
@@ -102,7 +102,7 @@
         "id": 12,
         "name": "Iron Sting",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 42,
         "effect": "Dealing Elemental DMG increases all DMG by 6% for 6s. Max 2 stacks. Can only occur once every 1s.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Iron_Sting.png"
@@ -111,18 +111,468 @@
         "id": 13,
         "name": "The Flute",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 42,
         "effect": "Normal or Charged Attacks grant a Harmonic on hits. Gaining 5 Harmonics triggers the power of music and deals 100% ATK DMG to surrounding enemies. Harmonics last up to 30s, and a maximum of 1 can be gained every 0.5s.",
-        "imgUrl": "https://example.com/the_flute.jpg"
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Flute.png"
     },
     {
         "id": 14,
         "name": "Sword of Descension",
         "rarity": 4,
-        "type": "Sword",
+        "typeId": 1,
         "baseAttack": 39,
         "effect": "Every 4s a character is on the field, they will deal 6% more DMG and take 3% more DMG. This effect has a maximum of 5 stacks and will not be reset if the character leaves the field, but will be reduced by 1 stack when the character takes DMG.",
         "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Flute.png"
+    },
+    {
+        "id": 15,
+        "name": "Lithic Spear",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 42,
+        "effect": "For every character in the party who hails from Liyue, the character who equips this weapon gains 7% ATK increase and 3% CRIT Rate increase. This effect stacks up to 4 times.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Lithic_Spear.png"
+    },
+    {
+        "id": 16,
+        "name": "Blackcliff Pole",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 42,
+        "effect": "After defeating an opponent, ATK is increased by 12% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Blackcliff_Pole.png"
+    },
+    {
+        "id": 17,
+        "name": "Royal Spear",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 44,
+        "effect": "Upon damaging an opponent, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Royal_Spear.png"
+    },
+    {
+        "id": 18,
+        "name": "Prototype Grudge",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 42,
+        "effect": "After using an Elemental Skill, increases Normal and Charged Attack DMG by 8% for 12s. Max 2 stacks.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Prototype_Starglitter.png"
+    },
+    {
+        "id": 19,
+        "name": "Favonius Lance",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 44,
+        "effect": "CRIT hits have a 60% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Favonius_Lance.png"
+    },
+    {
+        "id": 20,
+        "name": "Deathmatch",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 41,
+        "effect": "If there are at least 2 enemies nearby, ATK is increased by 16% and DEF is increased by 16%. If there are fewer than 2 enemies nearby, ATK is increased by 24%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Deathmatch.png"
+    },
+    {
+        "id": 21,
+        "name": "Halberd",
+        "rarity": 3,
+        "typeId": 2,
+        "baseAttack": 40,
+        "effect": "Normal Attacks deal an additional 160% DMG. Can only occur once every 10s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Halberd.png"
+    },
+    {
+        "id": 22,
+        "name": "White Tassel",
+        "rarity": 3,
+        "typeId": 2,
+        "baseAttack": 39,
+        "effect": "Increases Normal Attack DMG by 24%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/White_Tassel.png"
+    },
+    {
+        "id": 23,
+        "name": "Black Tassel",
+        "rarity": 3,
+        "typeId": 2,
+        "baseAttack": 38,
+        "effect": "Increases DMG against slimes by 40%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Black_Tassel.png"
+    },
+    {
+        "id": 24,
+        "name": "Crescent Pike",
+        "rarity": 4,
+        "typeId": 2,
+        "baseAttack": 44,
+        "effect": "After picking up an Elemental Orb/Particle, Normal and Charged Attacks deal an additional 20% ATK DMG for 5s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Crescent_Pike.png"
+    },
+    {
+        "id": 25,
+        "name": "Blackcliff Pole",
+        "rarity": 3,
+        "typeId": 2,
+        "baseAttack": 38,
+        "effect": "After defeating an opponent, ATK is increased by 6% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Blackcliff_Pole.png"
+    },
+    {
+        "id": 26,
+        "name": "Wolf's Gravestone",
+        "rarity": 5,
+        "typeId": 3,
+        "baseAttack": 46,
+        "effect": "Increases ATK by 20%. On hit, attacks against enemies with less than 30% HP increase all party members' ATK by 40% for 12s. Can only occur once every 30s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Wolf's_Gravestone.png"
+    },
+    {
+        "id": 27,
+        "name": "Skyward Pride",
+        "rarity": 5,
+        "typeId": 3,
+        "baseAttack": 48,
+        "effect": "Increases all DMG by 8%. After using an Elemental Burst, Normal or Charged Attack, on hit, creates a vacuum blade that deals 80% of ATK as DMG to enemies along its path. Lasts for 20s or 8 vacuum blades.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Skyward_Pride.png"
+    },
+    {
+        "id": 28,
+        "name": "The Unforged",
+        "rarity": 5,
+        "typeId": 3,
+        "baseAttack": 46,
+        "effect": "Increases Shield Strength by 20%. Scoring hits on opponents increases ATK by 4% for 8s. Max 5 stacks. Can only occur once every 0.3s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Unforged.png"
+    },
+    {
+        "id": 29,
+        "name": "Serpent Spine",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 42,
+        "effect": "Every 4s a character is on the field, they will deal 6% more DMG and take 3% more DMG. This effect has a maximum of 5 stacks and will not be reset if the character leaves the field, but will be reduced by 1 stack when the character takes DMG.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Serpent_Spine.png"
+    },
+    {
+        "id": 30,
+        "name": "The Bell",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 42,
+        "effect": "Taking DMG generates a shield that absorbs DMG up to 20% of Max HP. This shield lasts for 10s or until broken, and can only be triggered once every 45s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Bell.png"
+    },
+    {
+        "id": 31,
+        "name": "Whiteblind",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 42,
+        "effect": "On hit, Normal or Charged Attacks increase ATK and DEF by 6% for 6s. Max 4 stacks. This effect can only occur once every 0.5s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Whiteblind.png"
+    },
+    {
+        "id": 32,
+        "name": "Rainslasher",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 42,
+        "effect": "Increases DMG against enemies affected by Hydro or Electro by 20%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Rainslasher.png"
+    },
+    {
+        "id": 33,
+        "name": "Lithic Blade",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 44,
+        "effect": "For every character in the party who hails from Liyue, the character who equips this weapon gains 7% ATK increase and 3% CRIT Rate increase. This effect stacks up to 4 times.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Lithic_Blade.png"
+    },
+    {
+        "id": 34,
+        "name": "Blackcliff Slasher",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 44,
+        "effect": "After defeating an opponent, ATK is increased by 12% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Blackcliff_Slasher.png"
+    },
+    {
+        "id": 35,
+        "name": "Snow-Tombed Starsilver",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 42,
+        "effect": "Hitting an enemy with Normal and Charged Attacks has a 60% chance of forming and dropping an Everfrost Icicle above them, dealing 80% AoE ATK DMG. Enemies affected by Cryo are dealt 200% ATK DMG instead by the icicle. Can only occur once every 10s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Snow-Tombed_Starsilver.png"
+    },
+    {
+        "id": 36,
+        "name": "Royal Greatsword",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 44,
+        "effect": "Upon damaging an opponent, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Royal_Greatsword.png"
+    },
+    {
+        "id": 37,
+        "name": "Sacrificial Greatsword",
+        "rarity": 4,
+        "typeId": 3,
+        "baseAttack": 44,
+        "effect": "After damaging an opponent with an Elemental Skill, the skill has a 40% chance to end its own CD. Can only occur once every 30s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Sacrificial_Greatsword.png"
+    },
+    {
+        "id": 38,
+        "name": "White Iron Greatsword",
+        "rarity": 3,
+        "typeId": 3,
+        "baseAttack": 39,
+        "effect": "Increases Shield Strength by 20%. Scoring hits on opponents increases ATK by 4% for 8s. Max 5 stacks. Can only occur once every 0.3s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/White_Iron_Greatsword.png"
+    },
+    {
+        "id": 39,
+        "name": "Lost Prayer to the Sacred Winds",
+        "rarity": 5,
+        "typeId": 4,
+        "baseAttack": 46,
+        "effect": "Increases Movement SPD by 10%. When in battle, gain an 8% Elemental DMG Bonus every 4s. Max 4 stacks. Lasts until the character falls or leaves combat.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Lost_Prayer_to_the_Sacred_Winds.png"
+    },
+    {
+        "id": 40,
+        "name": "Skyward Atlas",
+        "rarity": 5,
+        "typeId": 4,
+        "baseAttack": 48,
+        "effect": "Increases Elemental DMG Bonus by 12%. Normal Attack hits have a 50% chance to earn the favor of the clouds. which actively seek out nearby enemies to attack for 15s, dealing 160% ATK DMG. Can only occur once every 30s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Skyward_Atlas.png"
+    },
+    {
+        "id": 41,
+        "name": "Memory of Dust",
+        "rarity": 5,
+        "typeId": 4,
+        "baseAttack": 46,
+        "effect": "Increases Shield Strength by 20%. Scoring hits on opponents increases ATK by 4% for 8s. Max 5 stacks. Can only occur once every 0.3s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Memory_of_Dust.png"
+    },
+    {
+        "id": 42,
+        "name": "Widsith",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "When a character takes the field, they will gain a random theme song for 10s. This can only occur once every 30s. Recitative: ATK is increased by 60%. Aria: Increases all Elemental DMG by 48%. Interlude: Elemental Mastery is increased by 240.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Widsith.png"
+    },
+    {
+        "id": 43,
+        "name": "Eye of Perception",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "Normal and Charged Attacks have a 50% chance to fire a Bolt of Perception, dealing 240% ATK as DMG. This bolt can bounce between enemies a maximum of 4 times. This effect can occur once every 12s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Eye_of_Perception.png"
+    },
+    {
+        "id": 44,
+        "name": "Solar Pearl",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "Normal Attack hits increase Elemental Skill and Elemental Burst DMG by 20% for 6s. Likewise, Elemental Skill or Elemental Burst hits increase Normal Attack DMG by 20% for 6s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Solar_Pearl.png"
+    },
+    {
+        "id": 45,
+        "name": "Frostbearer",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "Hitting an enemy with Normal and Charged Attacks has a 60% chance of forming and dropping an Everfrost Icicle above them, dealing 80% AoE ATK DMG. Enemies affected by Cryo are dealt 200% ATK DMG instead by the icicle. Can only occur once every 10s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Frostbearer.png"
+    },
+    {
+        "id": 46,
+        "name": "Mappa Mare",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 44,
+        "effect": "Triggering an Elemental reaction grants a 8% Elemental DMG Bonus for 10s. Max 2 stacks.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Mappa_Mare.png"
+    },
+    {
+        "id": 47,
+        "name": "The Widsith",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "When a character takes the field, they will gain a random theme song for 10s. This can only occur once every 30s. Recitative: ATK is increased by 60%. Aria: Increases all Elemental DMG by 48%. Interlude: Elemental Mastery is increased by 240.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Widsith.png"
+    },
+    {
+        "id": 48,
+        "name": "Prototype Amber",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "Using an Elemental Burst regenerates 4 Energy every 2s for 6s. All party members will regenerate 4% HP every 2s for this duration.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Prototype_Amber.png"
+    },
+    {
+        "id": 49,
+        "name": "Blackcliff Agate",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 44,
+        "effect": "After defeating an opponent, ATK is increased by 12% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Blackcliff_Agate.png"
+    },
+    {
+        "id": 50,
+        "name": "Favonius Codex",
+        "rarity": 4,
+        "typeId": 4,
+        "baseAttack": 42,
+        "effect": "CRIT hits have a 60% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Favonius_Codex.png"
+    },
+    {
+        "id": 51,
+        "name": "Magic Guide",
+        "rarity": 3,
+        "typeId": 4,
+        "baseAttack": 38,
+        "effect": "Increases DMG against slimes by 40%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Magic_Guide.png"
+    },
+    {
+        "id": 51,
+        "name": "Amos' Bow",
+        "rarity": 5,
+        "typeId": 5,
+        "baseAttack": 46,
+        "effect": "Increases Normal and Charged Attack DMG by 12%. After using an Elemental Skill, increases Normal and Charged Attack DMG by 8% for 12s. Max 2 stacks.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Amos'_Bow.png"
+    },
+    {
+        "id": 52,
+        "name": "Skyward Harp",
+        "rarity": 5,
+        "typeId": 5,
+        "baseAttack": 48,
+        "effect": "Increases CRIT DMG by 20%. Hits have a 60% chance to inflict a small AoE attack, dealing 125% Physical ATK DMG. Can only occur once every 4s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Skyward_Harp.png"
+    },
+    {
+        "id": 53,
+        "name": "The Viridescent Hunt",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "Upon hit, Normal and Aimed Shot have a 50% chance to generate a Cyclone, which will continuously attract surrounding enemies, dealing 40% of ATK as DMG to these enemies every 0.5s for 4s. This effect can only occur once every 14s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Viridescent_Hunt.png"
+    },
+    {
+        "id": 54,
+        "name": "Prototype Crescent",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "Charged Attack hits on weak points increase Movement SPD by 10% and ATK by 36% for 10s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Prototype_Crescent.png"
+    },
+    {
+        "id": 55,
+        "name": "The Stringless",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "Increases Elemental Skill and Elemental Burst DMG by 24%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/The_Stringless.png"
+    },
+    {
+        "id": 56,
+        "name": "Royal Bow",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "Upon damaging an opponent, increases CRIT Rate by 8%. Max 5 stacks. A CRIT hit removes all stacks.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Royal_Bow.png"
+    },
+    {
+        "id": 57,
+        "name": "Favonius Warbow",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "CRIT hits have a 60% chance to generate 1 Elemental Orb, which will regenerate 6 Energy for the character. Can only occur once every 12s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Favonius_Warbow.png"
+    },
+    {
+        "id": 58,
+        "name": "Rust",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "Increases Normal Attack DMG by 40% but decreases Aimed Shot DMG by 10%.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Rust.png"
+    },
+    {
+        "id": 59,
+        "name": "Compound Bow",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 41,
+        "effect": "Normal Attack and Aimed Shot hits increase ATK by 4% and Normal ATK SPD by 1.2% for 6s. Max 4 stacks. Can only occur once every 0.3s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Compound_Bow.png"
+    },
+    {
+        "id": 60,
+        "name": "Blackcliff Warbow",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 44,
+        "effect": "After defeating an opponent, ATK is increased by 12% for 30s. This effect has a maximum of 3 stacks, and the duration of each stack is independent of the others.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Blackcliff_Warbow.png"
+    },
+    {
+        "id": 61,
+        "name": "Prototype Crescent",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 44,
+        "effect": "On hit, Normal or Charged Attacks have a 50% chance to deal an additional 240% ATK DMG to enemies within a small AoE. Can only occur once every 15s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Prototype_Crescent.png"
+    },
+    {
+        "id": 62,
+        "name": "Favonius Warbow",
+        "rarity": 4,
+        "typeId": 5,
+        "baseAttack": 42,
+        "effect": "CRIT hits have a 60% chance to generate a small amount of Elemental Particles, which will regenerate 6 Energy for the character. Can only occur once every 12s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Favonius_Warbow.png"
+    },
+    {
+        "id": 63,
+        "name": "Messenger",
+        "rarity": 3,
+        "typeId": 5,
+        "baseAttack": 40,
+        "effect": "Normal Attack hits increase Elemental Skill and Elemental Burst DMG by 20% for 6s. Likewise, Elemental Skill or Elemental Burst hits increase Normal Attack DMG by 20% for 6s.",
+        "imgUrl": "https://rerollcdn.com/GENSHIN/Weapons/Messenger.png"
     }
 ]
