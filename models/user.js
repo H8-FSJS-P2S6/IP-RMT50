@@ -5,13 +5,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.belongsTo(models.Village, {
-        foreignKey: 'villageId'
-      });
-      User.belongsToMany(models.Character, {
-        through: 'UserCharacters',
-        foreignKey: 'userId'
-      });
+      User.belongsTo(models.Village, { foreignKey: 'villageId', as: 'village' });
+      User.hasMany(models.Character, { foreignKey: 'userId' });
     }
   }
 
@@ -76,11 +71,10 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     villageId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Village ID is required'
-        }
+      allowNull: true,
+      references: {
+        model: 'Villages',
+        key: 'id'
       }
     },
     isPremium: {

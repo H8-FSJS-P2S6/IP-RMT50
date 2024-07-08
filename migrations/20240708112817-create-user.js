@@ -38,13 +38,11 @@ module.exports = {
       },
       villageId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Villages',
           key: 'id'
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
       },
       isPremium: {
         type: Sequelize.BOOLEAN,
