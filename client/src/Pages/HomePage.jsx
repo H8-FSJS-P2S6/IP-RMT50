@@ -1,51 +1,52 @@
+import { characterCard } from "../components/card";
 import { useEffect, useState } from "react";
-// import { Card } from "../components/card";
 import axios from "axios";
-// import { Navbar } from "../components/navbar";
+import Navbar from "../components/navbar";
+import { useState, useEffect } from "react";
+import "../css/home.css";
+import Navbar from "../Components/NavbarUser";
+import Cards from "../Components/Card";
+import Footer from "../Components/Footer";
+import axios from "../Utility/Axios";
+import PaginationButton from "../Components/PaginationButton";
+import PageSize from "../Components/PageSize";
 
-export default function HomePage() {
-  const [coins, setCoin] = useState([]);
+export default function HomePage(){
+const [character, setCharacter] = useState([])
 
-  const fechCoin = async () => {
-    try {
-      const { data } = await axios({
-        method: "get",
-        url: "https://api.p2.lc2s6.foxhub.space/coins",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
+
+const fechCharacter =  async () =>{
+try {
+    const {data} = await axios({
+        method: 'get',
+        url: 'https://api.p2.slc1.foxhub.space/Character',
+       headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`},
+       },
+      )
       console.log(data)
-      setCoin(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+setCharacter(data)
+} catch (err) {
+    console.log(err)
+}
 
-  useEffect(() => {
-    fechCoin();
-  }, []);
+}
+useEffect(() => {
+fechCharacter()
+},[])
 
-  const handdleDelete = async ({ coin }) => {
-    try {
-      await axios({
-        method: "delete",
-        url: `https://api.p2.lc2s6.foxhub.space/usercoins/${coin.id}`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  return  <div className="container d-flex flex-wrap gap-3 justify-content-center">
-          {/* {coins.map((coin) => {
-            return (
-              <Card key={coin.id} coin={coin}  handdleDelete={handdleDelete()} />
-            );
-          })} */}
-        </div>
+
+    return <>
+    <div>
+    <div className="container d-flex flex-wrap gap-3 justify-content-center ">
+            return <CharacterCard />
+       
+        
+    </div>
+
+
+    </div>
     
+    </>
 }

@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const username = email.split('@')[0];
   const handdleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,13 +21,13 @@ export default function Login() {
         },
       });
 
-
+// console.log(data)
       navigate("/");
       localStorage.setItem("access_token", data.access_token);
       Swal.fire({
         position: "top-center",
         icon: "success",
-        title: "Selamat Datang 😊🙏",
+        title: `Selamat Datang ${username} 😊🙏`,
         showConfirmButton: false,
         timer: 1500,
       });
