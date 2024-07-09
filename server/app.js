@@ -42,7 +42,6 @@ app.get(`/updateAll`, UpdateService.updateAllChannelViews)
 app.get(`/getoneChannelYoutube/:channelId`, channelController.getoneChannelYoutube)
 
 
-
 app.use(errorHandler)
 
 app.listen(port, () => {
