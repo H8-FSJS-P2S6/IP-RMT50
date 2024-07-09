@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Party.hasMany(models.Character, { foreignKey: { CharacterId } })
+      Party.hasMany(models.Weapon, { foreignKey: { WeaponId } })
     }
   }
   Party.init({
