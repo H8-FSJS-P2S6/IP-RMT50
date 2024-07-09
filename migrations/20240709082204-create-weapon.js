@@ -2,33 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Parties', {
+    await queryInterface.createTable('Weapons', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      UserId: {
+      name: {
+        type: Sequelize.STRING
+      },
+      rarity: {
+        type: Sequelize.INTEGER
+      },
+      TypeId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
-          key: 'id'
+          model: `Types`,
+          key: `id`
         }
       },
-      CharacterId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Characters',
-          key: 'id'
-        }
+      baseAttack: {
+        type: Sequelize.INTEGER
       },
-      WeaponId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: `Weapons`,
-          key: 'id'
-        }
+      effect: {
+        type: Sequelize.STRING
+      },
+      imgUrl: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Parties');
+    await queryInterface.dropTable('Weapons');
   }
 };

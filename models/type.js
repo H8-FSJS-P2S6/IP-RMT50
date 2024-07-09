@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Type.hasMany(models.Weapon)
     }
   }
   Type.init({

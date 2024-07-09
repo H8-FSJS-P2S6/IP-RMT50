@@ -11,14 +11,40 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Party.hasMany(models.Character, { foreignKey: { CharacterId } })
-      Party.hasMany(models.Weapon, { foreignKey: { WeaponId } })
     }
   }
   Party.init({
-    UserId: DataTypes.INTEGER,
-    CharacterId: DataTypes.INTEGER,
-    WeaponId: DataTypes.INTEGER
+    UserId: {
+      type: DataTypes.INTEGER
+    },
+    CharacterId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: `CharacterId is required`
+        },
+        notEmpty: {
+          args: true,
+          msg: `CharacterId is required`
+        }
+      }
+    },
+    WeaponId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: `WeaponId is required`
+        },
+        notEmpty: {
+          args: true,
+          msg: `WeaponId is required`
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Party',

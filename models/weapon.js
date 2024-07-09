@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Weapon.belongsTo(models.Type)
     }
   }
   Weapon.init({

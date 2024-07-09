@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Party, { foreignKey: `` })
     }
   }
   User.init({
@@ -34,28 +35,23 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: `Email is required`
+          msg: `Email cannot be empty`
         },
         notNull: {
           args: true,
           msg: `Email is required`
         }
-      },
-      unique: {
-        args: true,
-        msg: `Email already exists`
       }
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
       defaultValue: `Staff`
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: `Password is required`
         },
