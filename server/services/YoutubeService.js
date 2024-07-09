@@ -1,12 +1,13 @@
 
-const { google } = require('googleapis');   
+const { google } = require('googleapis');
+const axios = require(`axios`)
 
 
 class YouTubeService {
     constructor() {
         this.youtube = google.youtube({
             version: 'v3',
-            auth: process.env.YOUTUBE_API_KEY 
+            auth: process.env.YOUTUBE_API_KEY
         });
     }
 
@@ -21,7 +22,7 @@ class YouTubeService {
             if (response.data.items) {
                 return response.data.items[0].statistics.viewCount
             }
-            else{
+            else {
                 // console.log(`Channel not found: ${channelId}`);
                 return null;
             }
@@ -31,6 +32,27 @@ class YouTubeService {
             return null;
         }
     }
+
+
+    async getChannelIdFromLink(url) {
+        const urlParts = url.split("/");
+        const username = urlParts[urlParts.length - 1]
+
+        try {
+            const response = await this.youtube.channels.list({
+                "part": [
+                    "snippet,contentDetails,statistics"
+                  ],
+                  "forHandle": `${username}`
+            });
+            return response.data.items[0]
+        } catch (error) {
+            console.error("Error fetching channel ID:", error);
+            return null;
+        }
+    }
+
 }
 
 module.exports = new YouTubeService();
+

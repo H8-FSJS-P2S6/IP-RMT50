@@ -15,6 +15,7 @@ module.exports = {
       },
       channelId: {
         type: Sequelize.STRING,
+        unique:true
       },
       tag: {
         type: Sequelize.STRING,
