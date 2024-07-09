@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const data = require('../data/').map((e) => {
+    const data = require('../data/weapon.json').map((e) => {
       delete e.id;
       e.createdAt = e.updatedAt = new Date();
       return e
