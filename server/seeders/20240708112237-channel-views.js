@@ -5,7 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     let clipJson = require(`../db/Clippertrack.json`)
     let clips = clipJson
-    .filter(e => e !== null && e !== undefined && e.channelName !== null && e.channelName !== undefined)
+    .filter(e => e !== null && e !== undefined && e.channelName !== null && e.channelName !== undefined && e.channelId !== null && e.channelId !== undefined)
     .map(e => ({
       ...e,
       createdAt: new Date(),

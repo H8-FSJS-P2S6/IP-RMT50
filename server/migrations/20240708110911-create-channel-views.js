@@ -16,6 +16,9 @@ module.exports = {
       channelId: {
         type: Sequelize.STRING,
       },
+      tag: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -26,7 +29,7 @@ module.exports = {
       }
     });
 
-    // Add columns for tracking dates
+
     const startDate = new Date('2022-03-01');
     const endDate = new Date('2024-07-01');
     let currentDate = new Date(startDate);

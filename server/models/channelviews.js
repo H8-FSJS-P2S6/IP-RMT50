@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ChannelViews.init({
-    channel: DataTypes.STRING,
-    youtubeChannelId: DataTypes.STRING,
-    views: DataTypes.INTEGER
+    channelName: DataTypes.STRING,
+    channelId: DataTypes.STRING,
+    tag: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'ChannelViews',
