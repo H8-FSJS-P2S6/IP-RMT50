@@ -1,18 +1,39 @@
-import React from 'react';
-// import { Container, Form, Button, Card, Badge, Pagination } from 'react-bootstrap';
-
+import React, { useEffect } from 'react';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    return (
-        <>
-      {/*
-        This example requires updating your template:
+  const navigate = useNavigate()
 
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
+  async function handleCredentialResponse(response) {
+    try {
+      const googleToken = response.credential;
+      console.log("sebelum await axios")
+      const {data} =await axios.post(`http://localhost:3000/login/google`, {googleToken})
+      console.log("setelah await axios")
+      localStorage.setItem(`accessToken`, data.access_token)
+      navigate(`/`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    window.google.accounts.id.initialize({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse
+    });
+    window.google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }  // customization attributes
+    );
+    window.google.accounts.id.prompt(); // also display the One Tap dialog
+  }, [])
+
+
+  return (
+    <>
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -75,6 +96,8 @@ function Login() {
               </button>
             </div>
           </form>
+          <br />
+          <div id="buttonDiv" className= "flex w-full justify-center rounded-md"></div>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
@@ -86,7 +109,7 @@ function Login() {
       </div>
     </>
 
-    )
+  )
 }
 
 export default Login
