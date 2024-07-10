@@ -38,11 +38,11 @@ app.use(express.json());
 app.post('/login', channelController.login)
 app.post('/login/google', channelController.googleLogin)
 
-// app.use(authentication)
 
-app.get('/all-channels', channelController.getChannels)
-app.get('/channel/:id', channelController.getOneChannel)
+app.get('/allChannels', channelController.getAllChannels)
+app.get('/channel/:channelId', channelController.getOneChannel)
 
+app.use(authentication)
 app.post('/channel', channelController.AddChannel)
 app.put('/channel/:channelId', channelController.EditChannel)
 app.delete('/channel/:channelId', channelController.DeleteChannel)

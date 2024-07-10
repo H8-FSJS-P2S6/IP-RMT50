@@ -8,7 +8,7 @@ async function initializeData() {
     const clipperJson = require(`./db/Clippertrack.json`)
     let clippers = clipperJson
         .filter(e => e !== null && e !== undefined && e.channelName !== null && e.channelName !== undefined && e.channelId !== null && e.channelId !== undefined)
-
+    // console.log(clippers.length)
     clippers.forEach(async (clipper) => {
         try {
             let result = await YoutubeService.getChannelInfoFromId(clipper.channelId)

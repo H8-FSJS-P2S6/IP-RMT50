@@ -10,11 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Channel.hasOne(models.ChannelViews, { foreignKey: "channelId", sourceKey: "channelId" })
     }
   }
   Channel.init({
-    channelId: DataTypes.STRING,
+    channelId: {
+      type: DataTypes.STRING,
+      unique: true, 
+      allowNull: false
+    },
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     customUrl: DataTypes.STRING,
@@ -27,6 +31,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Channel',
+    indexes: [
+      {
+        unique: true,
+        fields: ['channelId']
+      }
+    ]
   });
   return Channel;
 };

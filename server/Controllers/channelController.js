@@ -1,4 +1,5 @@
 const YoutubeService = require("../services/YoutubeService")
+const { Op } = require("sequelize");
 const moment = require('moment');
 const ChannelViews = require(`../models`).ChannelViews
 const Channel = require(`../models`).Channel
@@ -7,15 +8,45 @@ const { sequelize } = require('../models');
 const summarizeJSON = require("../services/GeminiService");
 const { signToken } = require("../helpers/jwt");
 const { checkPassword } = require("../helpers/bcryptjs");
+const { Sequelize } = require('sequelize');
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client();
 
 
 class channelController {
-    static async getChannels(req, res, next) {
+    static async getAllChannels(req, res, next) {
         try {
-            let result = await ChannelViews.findAll({ limit: 10 })
-            res.status(200).json(result)
+            let { title, tag, orderByCreatedAt = "DESC", page=1 } = req.query
+
+            let options = {
+                include: {
+                    model: ChannelViews,
+                    attributes: {
+                        include: [
+                            [Sequelize.literal('(SELECT row_to_json(cv) FROM (SELECT * FROM "ChannelViews" WHERE "ChannelViews"."channelId" = "Channel"."channelId") cv)'), 'all_columns']
+                        ]
+                    }
+                },
+                limit: 25,
+                offset: (page - 1) * 25
+            }
+
+            if (title) {
+                options.where = { title: { [Op.iLike]: `%${title}%` } };
+            }
+            if (tag) {
+                options.include.where = { tag : { [Op.iLike]: `%${title}%` } }
+            }
+            if (orderByCreatedAt){
+                options.order = [['createdAt', `${orderByCreatedAt}`]] // isinya ASC atau DESC seperti di soal
+            }
+
+
+            let result = await Channel.findAll(options)
+            res.status(200).json({
+                result : result,
+                page: page,
+				maxPage: Math.ceil(result.count/25),})
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: "Internal Service Error" })
@@ -24,8 +55,9 @@ class channelController {
 
     static async getOneChannel(req, res, next) {
         try {
-            const { id } = req.params
-            let result = await Channel.findByPk(id)
+            const { channelId } = req.params
+            console.log(channelId, "<=============")
+            let result = await Channel.findOne({where:{channelId}})
             console.log(result)
             if (!result) {
                 res.send("Channel not found")
@@ -41,7 +73,7 @@ class channelController {
 
     static async truncateChannel(req, res, next) {
         try {
-            let result = await ChannelViews.truncate()
+            let result = await Channel.truncate()
             res.status(200).json(result)
         } catch (error) {
             console.log(error)
@@ -86,12 +118,12 @@ class channelController {
                 tag
             })
 
-            let updateQuery =
-                `UPDATE "ChannelViews" 
-                SET "${today}" = ${result.statistics.viewCount}
-                 WHERE "channelId" = '${result.id}'
-                RETURNING *;
-                `
+            // let updateQuery =
+            //     `UPDATE "ChannelViews" 
+            //     SET "${today}" = ${result.statistics.viewCount}
+            //      WHERE "channelId" = '${result.id}'
+            //     RETURNING *;
+            //     `
 
             await sequelize.query(updateQuery, { raw: true })
 

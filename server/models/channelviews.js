@@ -10,12 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      ChannelViews.belongsTo(models.Channel, { foreignKey: "channelId", targetKey: "channelId" })
     }
   }
   ChannelViews.init({
     channelName: DataTypes.STRING,
-    channelId: DataTypes.STRING,
+    channelId: {
+      type: DataTypes.STRING,
+      references: {
+        model: 'Channels',
+        key: 'channelId'
+      }
+    },
     tag: DataTypes.STRING
   }, {
     sequelize,
