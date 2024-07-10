@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from `react-redux`
-import store from `./store`
+import { Provider } from 'react-redux'
+import store from './store'
 import './index.css'
 import {
   createBrowserRouter,
@@ -10,31 +10,40 @@ import {
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import YouTuberDetailsPage from './pages/details';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <>
-    <Login />
+      <Login />
     </>,
   },
   {
     path: "/",
     element: <>
-    <Homepage />
+      <Homepage />
     </>,
   },
   {
     path: "/details",
     element: <>
-    <YouTuberDetailsPage />
+      <YouTuberDetailsPage />
     </>,
   },
-  
+  {
+    path: "/",
+    element: <>
+      <AddYoutuber />
+    </>,
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
+    <ToastContainer />
     <RouterProvider router={router} />
   </Provider>
 )
