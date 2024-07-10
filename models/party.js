@@ -10,41 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Party.hasMany(models.Team)
     }
   }
   Party.init({
-    UserId: {
-      type: DataTypes.INTEGER
-    },
-    CharacterId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: true,
-          msg: `CharacterId is required`
-        },
-        notEmpty: {
-          args: true,
-          msg: `CharacterId is required`
-        }
-      }
-    },
-    WeaponId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: true,
-          msg: `WeaponId is required`
-        },
-        notEmpty: {
-          args: true,
-          msg: `WeaponId is required`
-        }
-      }
-    }
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Party',

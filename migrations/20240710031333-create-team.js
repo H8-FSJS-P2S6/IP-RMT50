@@ -2,17 +2,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Parties', {
+    await queryInterface.createTable('Teams', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      UserId: {
+      PartyId: {
         type: Sequelize.INTEGER,
         references: {
-          model: `Users`,
+          model: `Parties`,
           key: `id`
         }
       },
@@ -22,7 +22,6 @@ module.exports = {
           model: `Characters`,
           key: `id`
         }
-        
       },
       WeaponId: {
         type: Sequelize.INTEGER,
@@ -42,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Parties');
+    await queryInterface.dropTable('Teams');
   }
 };

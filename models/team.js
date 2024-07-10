@@ -3,67 +3,63 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Team extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      User.hasOne(models.Party)
+      Team.hasMany(models.Character)
+      Team.belongsTo(models.Party, { foreignKey: `PartyId` })
     }
   }
-  User.init({
-    name: {
-      type: DataTypes.STRING,
+  Team.init({
+    PartyId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: `Name is required`
+          msg: `Party Id cannot be empty`
         },
         notNull: {
           args: true,
-          msg: `Name is required`
+          msg: `Party Id is required`
         }
       }
     },
-    email: {
-      type: DataTypes.STRING,
+    CharacterId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: `Email cannot be empty`
+          msg: `Character Id cannot be empty`
         },
         notNull: {
           args: true,
-          msg: `Email is required`
+          msg: `Character Id is required`
         }
       }
     },
-    role: {
-      type: DataTypes.STRING,
-      defaultValue: `Staff`
-    },
-    password: {
-      type: DataTypes.STRING,
+    WeaponId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: `Password is required`
+          msg: `Weapon Id cannot be empty`
         },
         notNull: {
           args: true,
-          msg: `Password is required`
+          msg: `Weapon Id is required`
         }
       }
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Team',
   });
-  return User;
+  return Team;
 };

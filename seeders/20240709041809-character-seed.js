@@ -15,10 +15,9 @@ module.exports = {
         e.createdAt = e.updatedAt = new Date();
         return e
       })
-      await queryInterface.bulkInsert('Characters', response.data.results)
-      // console.log(response.data.results)
+      await queryInterface.bulkInsert('Characters', response.data.results);
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   },
 
