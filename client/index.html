@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,42 +25,41 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
       rel="stylesheet"
     />
-    
+
     <style>
       body {
-          cursor: url(https://cdn.custom-cursor.com/db/12824/32/naruto-minato-namikaze-and-flying-thunder-god-cursor.png) , default !important;
+        cursor: url(https://cdn.custom-cursor.com/db/12824/32/naruto-minato-namikaze-and-flying-thunder-god-cursor.png),
+          default !important;
       }
       .custom-cursor {
-          transform: scale(1.5); 
+        transform: scale(1.5);
       }
 
-
       @font-face {
-          font-family: 'Naruto';
-          src: url('path/to/font-naruto.woff2') format('woff2'),
-               url('path/to/font-naruto.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
+        font-family: "Naruto";
+        src: url("path/to/font-naruto.woff2") format("woff2"),
+          url("path/to/font-naruto.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
       }
 
       .font-naruto {
-          font-family: 'Naruto', sans-serif;
-          font-size: 1.25rem; 
-          font-weight: bold;
-          letter-spacing: 0.05em; 
-          color: #ff6600; 
+        font-family: "Naruto", sans-serif;
+        font-size: 1.25rem;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+        color: #ff6600;
       }
-
 
       @media (min-width: 1024px) {
-          .lg\:text-xl {
-              font-size: 1.5rem;
-          }
+        .lg\:text-xl {
+          font-size: 1.5rem;
+        }
       }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-</body>
+  </body>
 </html>

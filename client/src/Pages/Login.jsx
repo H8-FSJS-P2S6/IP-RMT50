@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const username = email.split('@')[0];
+  const username = email.split("@")[0];
   const handdleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,7 +21,6 @@ export default function Login() {
         },
       });
 
-// console.log(data)
       navigate("/");
       localStorage.setItem("access_token", data.access_token);
       Swal.fire({
@@ -46,7 +45,10 @@ export default function Login() {
       <section className="vh-100">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-6 text-black" style={{ backgroundColor: "#CEA138" }}>
+            <div
+              className="col-sm-6 text-black"
+              style={{ backgroundColor: "#CEA138" }}
+            >
               <div className="px-5 ms-xl-4">
                 <i
                   className="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"
@@ -105,10 +107,10 @@ export default function Login() {
                       Register
                     </Link>
                   </p>
-                </form >
+                </form>
               </div>
             </div>
-            <div className="col-sm-6 px-0 d-none d-sm-block" >
+            <div className="col-sm-6 px-0 d-none d-sm-block">
               <img
                 src="https://w0.peakpx.com/wallpaper/58/875/HD-wallpaper-konoha-anime-naruto.jpg"
                 alt="Login image"

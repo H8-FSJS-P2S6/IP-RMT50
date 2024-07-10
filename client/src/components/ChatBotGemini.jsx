@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const GeminiChatBot = () => {
-  const [naruto, setNaruto] = useState('');
-  const [result, setResult] = useState('');
+  const [naruto, setNaruto] = useState("");
+  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,7 +13,9 @@ const GeminiChatBot = () => {
       setError(null);
 
       try {
-        const response = await axios.post('http://localhost:3000/gemini', { naruto });
+        const response = await axios.post("http://localhost:3000/gemini", {
+          naruto,
+        });
         setResult(response.data);
       } catch (err) {
         console.error(err);
@@ -35,10 +37,10 @@ const GeminiChatBot = () => {
   const handleGeminiAI = () => {
     if (naruto) {
       setLoading(true);
-      setResult('');
+      setResult("");
       setError(null);
     } else {
-      setError('Please enter a prompt in the Naruto field.');
+      setError("Please enter a prompt in the Naruto field.");
     }
   };
 
@@ -55,9 +57,9 @@ const GeminiChatBot = () => {
         />
       </div>
       <button onClick={handleGeminiAI} disabled={loading || !naruto}>
-        {loading ? 'Loading...' : 'Submit'}
+        {loading ? "Loading..." : "Submit"}
       </button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {result && (
         <div>
           <h3>Result:</h3>

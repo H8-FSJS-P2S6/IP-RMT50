@@ -30,7 +30,11 @@ const ModalChatBot = () => {
             >
               Close
             </button>
-            <button type="button" className="btn btn-primary" data-mdb-ripple-init="">
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-mdb-ripple-init=""
+            >
               Save changes
             </button>
           </div>

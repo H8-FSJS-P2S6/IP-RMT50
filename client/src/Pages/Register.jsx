@@ -5,11 +5,11 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Register() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
-    const [address, setAddress] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
   const handdleSubmit = async (e) => {
@@ -23,7 +23,7 @@ export default function Register() {
           password,
           username,
           address,
-          phoneNumber
+          phoneNumber,
         },
       });
 
@@ -50,7 +50,10 @@ export default function Register() {
       <section className="vh-100">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-6 text-black" style={{ backgroundColor: "#5B9C5D" }}>
+            <div
+              className="col-sm-6 text-black"
+              style={{ backgroundColor: "#5B9C5D" }}
+            >
               <div className="px-5 ms-xl-4">
                 <i
                   className="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"

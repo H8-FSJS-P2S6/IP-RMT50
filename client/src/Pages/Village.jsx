@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import "../Css/Table.css";
 
 function VillagePage() {
   const [villages, setVillages] = useState([]);
@@ -8,10 +8,17 @@ function VillagePage() {
   useEffect(() => {
     async function fetchVillages() {
       try {
-        const response = await axios.get(`http://localhost:3000/villages`);
+        const token = localStorage.getItem("access_token");
+        const response = await axios({
+          method: "GET",
+          url: `http://localhost:3000/villages`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setVillages(response.data);
       } catch (error) {
-        console.error('Error fetching villages:', error);
+        console.error(error);
       }
     }
 
@@ -20,15 +27,32 @@ function VillagePage() {
 
   return (
     <div>
-      <h1>List of Villages</h1>
-      <ul>
-        {villages.map(village => (
-          <li key={village.id}>
-            <strong>{village.name}</strong> - {village.leader}
-            <p>{village.history}</p>
-          </li>
-        ))}
-      </ul>
+      <h1
+        className="text-center primary mb-0"
+        style={{ backgroundColor: "white", padding: "1rem" }}
+      >
+        List of Villages
+      </h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">NO</th>
+            <th scope="col">Name</th>
+            <th scope="col">Leader</th>
+            <th scope="col">History</th>
+          </tr>
+        </thead>
+        <tbody>
+          {villages.map((village) => (
+            <tr className="table-danger" key={village.id}>
+              <td>{village.id}</td>
+              <td>{village.name}</td>
+              <td>{village.leader}</td>
+              <td>{village.history}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

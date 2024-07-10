@@ -6,7 +6,7 @@ import PageSize from "../components/PageSize";
 import Navbar from "../components/navbar";
 import "../Css/HomePage.css";
 import GeminiChatBot from "../components/ChatBotGemini";
-
+import Footer from "../components/Footer";
 
 const HomePage = () => {
   const [characters, setCharacters] = useState([]);
@@ -27,18 +27,15 @@ const HomePage = () => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const { data } = await axios.get(
-        'http://localhost:3000/characters',
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params: {
-            page: currentPage,
-            limit: pageSize
-          }
-        }
-      );
+      const { data } = await axios.get("http://localhost:3000/characters", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          page: currentPage,
+          limit: pageSize,
+        },
+      });
 
       setCharacters(data.characters || []);
       setTotalCharacters(data.totalCharacters || 0);
@@ -72,13 +69,13 @@ const HomePage = () => {
       <Navbar />
       <div className="container-fluid text-center mx-auto p-0">
         <div className="row justify-content-center">
-        <div className="col-md-3">
+          <div className="col-md-3">
             <GeminiChatBot />
           </div>
           <div className="col-md-8">
             <h2 className="my-4">Character List</h2>
             {loading ? (
-              <p>Loading...</p> 
+              <p>Loading...</p>
             ) : error ? (
               <p className="text-danger">{error}</p>
             ) : characters.length === 0 ? (
@@ -107,11 +104,15 @@ const HomePage = () => {
               />
             </div>
             <div className="mt-3">
-              <PageSize sizes={[10, 20, 50]} onSelectSize={handlePageSizeChange} />
+              <PageSize
+                sizes={[10, 20, 50]}
+                onSelectSize={handlePageSizeChange}
+              />
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
