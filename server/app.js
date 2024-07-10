@@ -38,7 +38,7 @@ app.use(express.json());
 app.post('/login', channelController.login)
 app.post('/login/google', channelController.googleLogin)
 
-app.use(authentication)
+// app.use(authentication)
 
 app.get('/all-channels', channelController.getChannels)
 app.get('/channel/:id', channelController.getOneChannel)

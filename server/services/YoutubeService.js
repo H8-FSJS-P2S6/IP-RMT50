@@ -52,6 +52,21 @@ class YouTubeService {
         }
     }
 
+    async getChannelInfoFromId(id) {
+        try {
+            const response = await this.youtube.channels.list({
+                "part": [
+                    "snippet,contentDetails,statistics"
+                  ],
+                  "id": `${id}`
+            });
+            return response.data.items[0]
+        } catch (error) {
+            console.error("Error fetching channel ID:", error);
+            return null;
+        }
+    }
+
 }
 
 module.exports = new YouTubeService();

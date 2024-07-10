@@ -100,6 +100,7 @@ class channelController {
             console.log(error)
             if (error.name == 'SequelizeUniqueConstraintError') {
                 res.json({ message: "Channel already exists" })
+                return
             }
             res.status(500).json({ message: "Internal Service Error" })
         }
@@ -141,6 +142,8 @@ class channelController {
     static async login(req, res) {
         try {
             let {username,password} = req.body
+            console.log("username: ", username)
+            console.log("password: ", password)
             if(!username){
                 res.status(400).json({message:"Username is required"})
                 return
@@ -150,7 +153,6 @@ class channelController {
                 return
             }
             let user = await User.findOne({where: {username:username}})
-            console.log(user.password)
             if(!user){
                 res.status(401).json({message:"Invalid Username/Password"})
                 return
@@ -168,6 +170,7 @@ class channelController {
                 res.status(400).send(message)
                 return
             }
+            console.log(err)
             res.status(500).json({message: "Internal server error"})
         }
     }
