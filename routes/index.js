@@ -1,4 +1,4 @@
-const { getParty, createParty, createTeam, updateParty, deleteParty } = require('../controllers/PartyController');
+const { getParty, createParty, createTeam, updateParty, deleteParty, updateTeam } = require('../controllers/PartyController');
 const { getWeapons, getWeaponById } = require('../controllers/PublicConroller');
 const { register, login } = require('../controllers/UserController');
 const { authentication } = require('../helpers/authentication');
@@ -14,5 +14,6 @@ router.get('/party', getParty);
 router.post('/party', createParty);
 router.delete('/party/:id', deleteParty);
 router.post('/party/:id/team', createTeam);
+router.put('/party/:id/team/:teamId', updateTeam);
 
 module.exports = router

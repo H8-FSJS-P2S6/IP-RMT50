@@ -23,7 +23,6 @@ module.exports = {
             const party = await Party.create({ UserId: req.user.id });
             res.status(201).json({ party });
         } catch (err) {
-            console.log(err)
             next(err);
         };
     },
@@ -41,7 +40,6 @@ module.exports = {
             await party.destroy();
             res.status(200).json({ message: `Party with id ${party.id} has been deleted` });
         } catch (err) {
-            console.log(err);
             next(err);
         }
     },
@@ -58,10 +56,20 @@ module.exports = {
             });
             res.status(201).json({ team });
         } catch (err) {
-            console.log(err)
             next(err);
         };
     },
 
-
+    async updateTeam(req, res, next) {
+        const { CharacterId, WeaponId } = req.body;
+        const { teamId } = req.params;
+        try {
+            const team = await Team.findByPk(teamId);
+            await team.update({ CharacterId, WeaponId })
+            res.status(200).json({ team })
+        } catch (err) {
+            console.log(err);
+            next(err);
+        };
+    }
 }
