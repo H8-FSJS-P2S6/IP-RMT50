@@ -1,13 +1,23 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown, initMDB } from "mdb-ui-kit";
-import "../Css/Navbar.css"
+import "../Css/Navbar.css";
 import "mdb-ui-kit/css/mdb.min.css";
-import { useEffect } from "react";
+
 initMDB({ Dropdown });
+
 export default function Navbar() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
     const dropdown = document.querySelector('[data-mdb-toggle="dropdown"]');
     if (dropdown) {
       new Dropdown(dropdown);
@@ -16,6 +26,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.clear();
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
@@ -23,10 +34,12 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div className="container-fluid">
-        <span className="font-naruto text-lg font-bold tracking-wider text-orange-500 lg:text-xl">N a r u t o</span>
+          <span className="font-naruto text-lg font-bold tracking-wider text-orange-500 lg:text-xl">
+            N a r u t o
+          </span>
           <div className="d-flex justify-content-center flex-grow-1">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+              <li className="nav-item">
                 <button className="btn btn-link nav-link" type="button">
                   Home
                 </button>
@@ -82,13 +95,23 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <button
-                    className="dropdown-item"
-                    onClick={handleLogout}
-                    type="button"
-                  >
-                    Logout
-                  </button>
+                  {isLoggedIn ? (
+                    <button
+                      className="dropdown-item"
+                      onClick={handleLogout}
+                      type="button"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <button
+                      className="dropdown-item"
+                      onClick={() => navigate("/login")}
+                      type="button"
+                    >
+                      Login
+                    </button>
+                  )}
                 </li>
               </ul>
             </li>

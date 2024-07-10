@@ -5,18 +5,20 @@ import PaginationButton from "../components/PaginationButton";
 import PageSize from "../components/PageSize";
 import Navbar from "../components/navbar";
 import "../Css/HomePage.css";
+import GeminiChatBot from "../components/ChatBotGemini";
+
 
 const HomePage = () => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20); 
+  const [pageSize, setPageSize] = useState(20);
   const [totalCharacters, setTotalCharacters] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchCharacters();
-  }, [currentPage, pageSize]); 
+  }, [currentPage, pageSize]);
 
   const fetchCharacters = async () => {
     setLoading(true);
@@ -26,14 +28,14 @@ const HomePage = () => {
       const accessToken = localStorage.getItem("access_token");
 
       const { data } = await axios.get(
-        'https://narutodb.xyz/api/character',
+        'http://localhost:3000/characters',
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
             page: currentPage,
-            size: pageSize
+            limit: pageSize
           }
         }
       );
@@ -41,8 +43,8 @@ const HomePage = () => {
       setCharacters(data.characters || []);
       setTotalCharacters(data.totalCharacters || 0);
     } catch (error) {
-      console.error("Error fetching characters:", error);
-      setError("Failed to fetch characters from external API.");
+      console.error(error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -53,7 +55,7 @@ const HomePage = () => {
   };
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
   const handlePageSizeChange = (size) => {
@@ -70,10 +72,13 @@ const HomePage = () => {
       <Navbar />
       <div className="container-fluid text-center mx-auto p-0">
         <div className="row justify-content-center">
+        <div className="col-md-3">
+            <GeminiChatBot />
+          </div>
           <div className="col-md-8">
             <h2 className="my-4">Character List</h2>
             {loading ? (
-              <p>Loading...</p>
+              <p>Loading...</p> 
             ) : error ? (
               <p className="text-danger">{error}</p>
             ) : characters.length === 0 ? (

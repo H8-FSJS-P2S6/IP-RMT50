@@ -31,7 +31,7 @@ export default function Register() {
       Swal.fire({
         position: "top-center",
         icon: "success",
-        title: "Selamat Datang 😊",
+        title: "Terima kasih telah registrasi 😊",
         showConfirmButton: false,
         timer: 1500,
       });
