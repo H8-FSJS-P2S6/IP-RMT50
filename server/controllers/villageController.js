@@ -1,7 +1,7 @@
 const { Village } = require("../models");
 
 module.exports = {
-  async postVillage(req, res, next) {
+  async createVillage(req, res, next) {
     try {
       const { name, leader, history } = await Village.create(req.body);
       res.status(201).json({ message: `Village ${name} created.` });
@@ -10,7 +10,7 @@ module.exports = {
     }
   },
 
-  async getVillage(req, res, next) {
+  async getVillages(req, res, next) {
     try {
       const villages = await Village.findAll();
       res.status(200).json(villages);
@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  async readVillageById(req, res, next) {
+  async getVillageById(req, res, next) {
     const id = req.params.id;
     try {
       const village = await Village.findByPk(id);

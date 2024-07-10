@@ -9,12 +9,10 @@ async function authorization(req, res, next) {
       throw { name: "User not found." };
     }
 
-
     if (req.user.role === "Admin") {
       next();
       return;
     }
-
 
     if (data.id !== userId) {
       throw { name: "Forbidden" };

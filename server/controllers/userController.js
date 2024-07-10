@@ -1,25 +1,25 @@
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
-
+const gemini = require("../helpers/geminiAI");
 module.exports = {
   async register(req, res, next) {
     try {
-      const { email, username,password,phoneNumber,address,image} = await User.create(req.body);
+      const { email, username, password, phoneNumber, address, image } =
+        await User.create(req.body);
       res.status(201).json({
         email: email,
         username: username,
         password: password,
-        phoneNumber:phoneNumber,
-        address:address,
-        image:image
+        phoneNumber: phoneNumber,
+        address: address,
+        image: image,
       });
     } catch (err) {
-      // console.log(err,`ada di register <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`)
       next(err);
     }
   },
-  
+
   async login(req, res, next) {
     const { email, password } = req.body;
     try {
@@ -30,19 +30,19 @@ module.exports = {
         throw { name: "Password is required" };
       }
       const user = await User.findOne({ where: { email } });
-  
+
       if (!user) {
         throw { name: "InvalidUser" };
       }
-  
+
       const isValidPassword = comparePassword(password, user.password);
-  
+
       if (!isValidPassword) {
         throw { name: "InvalidUserToken" };
       }
-  
+
       const token = signToken({ id: user.id });
-  
+
       res.status(200).json({ access_token: token });
     } catch (err) {
       next(err);
@@ -50,11 +50,40 @@ module.exports = {
   },
   async createUser(req, res, next) {
     try {
-      const { email, username } = await User.create(req.body);
+      if (req.user.role !== "Admin") {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+
+      const {
+        email,
+        username,
+        role,
+        villageId,
+        password,
+        phoneNumber,
+        address,
+        image,
+      } = await User.create(req.body);
+
       res.status(201).json({
         email: email,
         username: username,
+        password: password,
+        phoneNumber: phoneNumber,
+        address: address,
+        image: image,
+        role: role,
+        villageId: villageId,
       });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getUser(req, res, next) {
+    try {
+      const data = await User.findAll();
+      res.status(200).json({ data });
     } catch (err) {
       next(err);
     }
@@ -94,4 +123,15 @@ module.exports = {
     }
   },
 
+  async geminiAI(req, res, next) {
+    try {
+      const { naruto1, naruto2 } = req.body;
+      let data = await gemini(naruto1, naruto2);
+
+      res.status(200).json(data);
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  },
 };
