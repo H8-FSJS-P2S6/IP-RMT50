@@ -14,6 +14,16 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/navbar'
 
+const isLogin = () => {
+  let token = localStorage.accessToken
+  let isLoggedIn
+  if (token) isLoggedIn = true
+  else isLoggedIn = false
+
+  if (isLoggedIn) return null
+  else return redirect('/login')
+}
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -29,7 +39,7 @@ const router = createBrowserRouter([
     </>,
   },
   {
-    path: "/details",
+    path: "/details/:channelId",
     element: <>
       <Navbar />
       <YouTuberDetailsPage />
