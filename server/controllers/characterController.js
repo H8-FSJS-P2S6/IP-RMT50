@@ -1,7 +1,7 @@
 const { Character, User, Village } = require("../models");
 
 module.exports = {
-  async postCharacter(req, res, next) {
+  async createCharacter(req, res, next) {
     const { name, abilities, status, background, userId, villageId } = req.body;
     try {
       const data = await Character.create({
@@ -19,8 +19,10 @@ module.exports = {
   },
 
   async getCharacters(req, res, next) {
+    const { page = 1, limit = 10 } = req.query;
     try {
-      const characters = await Character.findAll({
+      const offset = (page - 1) * limit;
+      const { count, rows } = await Character.findAndCountAll({
         include: [
           {
             model: User,
@@ -30,8 +32,20 @@ module.exports = {
             model: Village,
           },
         ],
+        offset,
+        limit,
       });
-      res.status(200).json(characters);
+
+      if (rows.length === 0) {
+        return res.status(404).json({ message: "No characters found." });
+      }
+
+      res.status(200).json({
+        totalCharacters: count,
+        totalPages: Math.ceil(count / limit),
+        page: Number(page),
+        characters: rows,
+      });
     } catch (err) {
       next(err);
     }

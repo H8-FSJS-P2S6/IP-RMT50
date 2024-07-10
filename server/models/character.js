@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Character.init({
-    imageUrl: DataTypes.STRING,
+    imageUrl: DataTypes.TEXT,
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,21 +28,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'Alive'
     },
-    background: DataTypes.STRING,
+    background: DataTypes.TEXT,
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       validate: {
-        notNull: {
+        notEmpty: {
           msg: 'User ID is required'
         }
       }
     },
     villageId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       validate: {
-        notNull: {
+        notEmpty: {
           msg: 'Village ID is required'
         }
       }

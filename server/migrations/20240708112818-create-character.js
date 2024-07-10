@@ -8,12 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      imageUrl: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false
       },
       abilities: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       status: {
         type: Sequelize.STRING,
@@ -24,7 +28,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Users',
           key: 'id'
@@ -34,7 +38,7 @@ module.exports = {
       },
       villageId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Villages',
           key: 'id'

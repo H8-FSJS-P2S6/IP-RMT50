@@ -12,7 +12,7 @@
       "abilities": "Chidori, Sharingan, Susanoo",
       "status": "Alive",
       "background": "Last survivor of the Uchiha clan",
-      "userId": 2,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -20,7 +20,7 @@
       "abilities": "Medical Ninjutsu, Super Strength",
       "status": "Alive",
       "background": "Member of Team 7",
-      "userId": 3,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -28,7 +28,7 @@
       "abilities": "Sharingan, Lightning Blade, Kamui",
       "status": "Alive",
       "background": "Former Hokage of Konoha",
-      "userId": 4,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -36,7 +36,7 @@
       "abilities": "Sand Manipulation, Shukaku's Power",
       "status": "Alive",
       "background": "Former Kazekage of Sunagakure",
-      "userId": 5,
+      "userId": 1,
       "villageId": 2
     },
     {
@@ -44,7 +44,7 @@
       "abilities": "Toad Sage Mode, Rasengan, Summoning Jutsu",
       "status": "Deceased",
       "background": "Legendary Sannin",
-      "userId": 6,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -52,7 +52,7 @@
       "abilities": "Snake Summoning, Body Replacement Technique",
       "status": "Alive",
       "background": "Former member of the Legendary Sannin",
-      "userId": 7,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -60,7 +60,7 @@
       "abilities": "Flying Thunder God Technique, Rasengan",
       "status": "Deceased",
       "background": "Fourth Hokage of Konoha",
-      "userId": 8,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -68,7 +68,7 @@
       "abilities": "Sharingan, Tsukuyomi, Amaterasu",
       "status": "Deceased",
       "background": "Former Anbu Captain",
-      "userId": 9,
+      "userId": 1,
       "villageId": 1
     },
     {
@@ -76,7 +76,7 @@
       "abilities": "Byakugan, Gentle Fist Technique",
       "status": "Alive",
       "background": "Heiress of the Hyuga Clan",
-      "userId": 10,
+      "userId": 1,
       "villageId": 1
     }
   ]
