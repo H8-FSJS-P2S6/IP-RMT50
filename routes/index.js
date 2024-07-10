@@ -5,8 +5,8 @@ const { authentication } = require('../middlewares/authentication');
 const { authorization, isAdmin } = require('../middlewares/authorization');
 const router = require('express').Router()
 
-router.get('/pub/weapons', getWeapons);
-router.get('/pub/weapons/:id', getWeaponById);
+router.get('/weapons', getWeapons);
+router.get('/weapons/:id', getWeaponById);
 router.post('/login', login);
 
 

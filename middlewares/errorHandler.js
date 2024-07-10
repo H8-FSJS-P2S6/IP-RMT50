@@ -25,7 +25,7 @@ function errorHandler(err, req, res, next) {
             break;
         case `Unauthenticated`:
         case `JsonWebTokenError`:
-            status = 404
+            status = 401
             message = `Unauthenticated`
             break;
         case `Party Full`:
@@ -44,7 +44,7 @@ function errorHandler(err, req, res, next) {
             status = 400
             message = `Cannot delete party that has teams`
             break;
-            case `Forbidden`:
+        case `Forbidden`:
             status = 404
             message = `You are not authorized`
             break;

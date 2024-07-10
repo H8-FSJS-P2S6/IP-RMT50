@@ -6,7 +6,6 @@ module.exports = {
         const id = req.params.id
         try {
             const party = await Party.findByPk(id, { include: Team });
-            console.log(party)
             if (!party) {
                 throw ({ name: `delete 404`, id });
             };

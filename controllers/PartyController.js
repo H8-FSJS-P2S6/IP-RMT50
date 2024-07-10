@@ -16,8 +16,8 @@ module.exports = {
 
     async createParty(req, res, next) {
         try {
-            const checking = await Party.findAll({ where: { UserId: req.user.id } })
-            if (checking.length > 4) {
+            const checking = await Party.findAll({ where: { UserId: req.user.id }, raw: true })
+            if (checking.length > 3) {
                 throw ({ name: `Party Full` });
             };
             const party = await Party.create({ UserId: req.user.id });
