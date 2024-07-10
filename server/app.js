@@ -1,5 +1,6 @@
 require('dotenv').config();
-const express = require('express')
+const express = require('express')  
+const cors = require('cors');
 const errorHandler = require('./middlewares/errorHandler')
 const channelController = require('./Controllers/channelController')
 const UpdateService = require('./services/UpdateService')
@@ -9,9 +10,10 @@ const port = 3000
 
 const cron = require('node-cron');
 const { exec } = require('child_process');
+const authentication = require('./middlewares/authentication');
 
 // Schedule the task to run at midnight every day
-cron.schedule('0 0 * * *', () => {
+cron.schedule('0 0 0 * * *', () => { //! harusnya ada 6
   exec('node services/UpdateService.js', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`);
@@ -27,8 +29,16 @@ cron.schedule('0 0 * * *', () => {
 
 
 
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.use(express.urlencoded({extended:true}))
+
+
+app.post('/login', channelController.login)
+app.post('/login/google', channelController.googleLogin)
+
+app.use(authentication)
 
 app.get('/all-channels', channelController.getChannels)
 app.get('/channel/:id', channelController.getOneChannel)
@@ -40,6 +50,7 @@ app.delete('/channel/:channelId', channelController.DeleteChannel)
 app.get('/truncate', channelController.truncateChannel)
 app.get(`/updateAll`, UpdateService.updateAllChannelViews)
 app.get(`/getoneChannelYoutube/:channelId`, channelController.getoneChannelYoutube)
+
 
 
 app.use(errorHandler)

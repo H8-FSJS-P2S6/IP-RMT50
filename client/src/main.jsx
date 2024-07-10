@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import { Provider } from `react-redux`
+import store from `./store`
 import './index.css'
 import {
   createBrowserRouter,
@@ -33,5 +34,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 )

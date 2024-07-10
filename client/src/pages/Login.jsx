@@ -8,9 +8,7 @@ function Login() {
   async function handleCredentialResponse(response) {
     try {
       const googleToken = response.credential;
-      console.log("sebelum await axios")
       const {data} =await axios.post(`http://localhost:3000/login/google`, {googleToken})
-      console.log("setelah await axios")
       localStorage.setItem(`accessToken`, data.access_token)
       navigate(`/`)
     } catch (error) {
