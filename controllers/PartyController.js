@@ -73,6 +73,9 @@ module.exports = {
         const { teamId } = req.params;
         try {
             const team = await Team.findByPk(teamId);
+            if (!team) {
+                throw ({ name: `TeamNotFound`, id: teamId })
+            };
             team.destroy();
             res.status(200).json({ message: `Team with id ${team.id} has been deleted` })
         } catch (err) {

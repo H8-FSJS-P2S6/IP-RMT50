@@ -44,6 +44,14 @@ function errorHandler(err, req, res, next) {
             status = 400
             message = `Cannot delete party that has teams`
             break;
+        case `404`:
+            status = 404
+            message = `Weapon with id ${err.id} not found`
+            break;
+            case `TeamNotFound`:
+            status = 404
+            message = `Team with id ${err.id} not found`
+            break;
         case `Forbidden`:
             status = 404
             message = `You are not authorized`
