@@ -12,6 +12,7 @@ import Homepage from './pages/Homepage';
 import YouTuberDetailsPage from './pages/details';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './components/navbar'
 
 const router = createBrowserRouter([
   {
@@ -23,19 +24,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <>
+      <Navbar />
       <Homepage />
     </>,
   },
   {
     path: "/details",
     element: <>
+      <Navbar />
       <YouTuberDetailsPage />
-    </>,
-  },
-  {
-    path: "/",
-    element: <>
-      <AddYoutuber />
     </>,
   },
 
