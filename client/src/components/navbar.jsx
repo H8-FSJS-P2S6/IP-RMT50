@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Dropdown, initMDB } from "mdb-ui-kit";
-import "mdb-ui-kit/css/mdb.min.css"; // Import CSS for MDB UI Kit
+import "../Css/Navbar.css"
+import "mdb-ui-kit/css/mdb.min.css";
 import { useEffect } from "react";
 initMDB({ Dropdown });
-
 export default function Navbar() {
   const navigate = useNavigate();
 
