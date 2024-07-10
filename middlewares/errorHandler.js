@@ -29,11 +29,11 @@ function errorHandler(err, req, res, next) {
             message = `Unauthenticated`
             break;
         case `Party Full`:
-            status = 404
+            status = 400
             message = `Your party is full`
             break;
         case `Team Full`:
-            status = 404
+            status = 400
             message = `Your team can only have 4 Character`
             break;
         case `delete 404`:
@@ -41,8 +41,12 @@ function errorHandler(err, req, res, next) {
             message = `Party with id ${err.id} not found`
             break;
         case `cannot delete`:
-            status = 404
+            status = 400
             message = `Cannot delete party that has teams`
+            break;
+            case `Forbidden`:
+            status = 404
+            message = `You are not authorized`
             break;
     }
     res.status(status).json({ message: message })

@@ -31,9 +31,6 @@ module.exports = {
         const { id } = req.params;
         try {
             const party = await Party.findByPk(id, { include: Team });
-            if (!party) {
-                throw ({ name: `delete 404`, id });
-            };
             if (party.Teams.length > 0) {
                 throw ({ name: `cannot delete` })
             };
@@ -68,7 +65,17 @@ module.exports = {
             await team.update({ CharacterId, WeaponId })
             res.status(200).json({ team })
         } catch (err) {
-            console.log(err);
+            next(err);
+        };
+    },
+
+    async deleteTeam(req, res, next) {
+        const { teamId } = req.params;
+        try {
+            const team = await Team.findByPk(teamId);
+            team.destroy();
+            res.status(200).json({ message: `Team with id ${team.id} has been deleted` })
+        } catch (err) {
             next(err);
         };
     }
