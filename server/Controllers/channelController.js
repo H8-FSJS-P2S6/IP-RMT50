@@ -141,12 +141,19 @@ class channelController {
         try {
             let { channelId } = req.params
             let { tag } = req.body
-            await ChannelViews.update({
-                tag
-            }, {
-                where: { channelId },
-            });
-            res.status(200).json({ message: "Edit Success!" })
+            let channel = await ChannelViews.findOne({where:{channelId}})
+            if(!channel){
+                res.status(404).json({message:"Cannot find channel"})
+                return
+            }
+            console.log(channel.channelName)
+            let updated = channel.update({tag})
+            // let result = await ChannelViews.update({
+            //     tag
+            // }, {
+            //     where: { channelId },
+            // });
+            res.status(200).json({ message: "Edit Success!", result:updated})
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: "Internal Service Error" })
