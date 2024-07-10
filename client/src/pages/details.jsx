@@ -7,14 +7,15 @@ const YouTuberDetailsPage = () => {
   const { channelId } = useParams()
   const isLoading = useSelector(state => state.channel.loading)
   const channel = useSelector(state => state.channel.channel)
+
   const dispatch = useDispatch()
-
-
-  console.log(channel)
+  // console.log(channelId)
 
   useEffect(() => {
+    // console.log(channel, "<=====before")
     dispatch(fetchOneChannel(channelId))
-  }, []);
+    console.log(channel.found.thumbnails, "<=====after")
+  }, [channelId, dispatch]);
 
 
 

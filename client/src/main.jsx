@@ -13,6 +13,7 @@ import YouTuberDetailsPage from './pages/details';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/navbar'
+import AddChannel from './pages/AddChannel'
 
 const isLogin = () => {
   let token = localStorage.accessToken
@@ -43,6 +44,13 @@ const router = createBrowserRouter([
     element: <>
       <Navbar />
       <YouTuberDetailsPage />
+    </>,
+  },
+  {
+    path: "/addChannel",
+    element: <>
+      <Navbar />
+      <AddChannel />
     </>,
   },
 
