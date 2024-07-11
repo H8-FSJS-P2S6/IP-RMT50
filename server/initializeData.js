@@ -1,4 +1,6 @@
-require('dotenv').config();
+if(process.env.NODE_ENV !== "production"){
+    require('dotenv').config();
+  }
 const ChannelViews = require(`./models`).ChannelViews
 const Channel = require(`./models`).Channel
 const { sequelize } = require('./models');

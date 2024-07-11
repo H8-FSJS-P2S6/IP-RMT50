@@ -6,7 +6,6 @@ const cors = require('cors');
 const errorHandler = require('./middlewares/errorHandler')
 const channelController = require('./Controllers/channelController')
 const app = express()
-const port = 3000
 
 
 const cron = require('node-cron');
