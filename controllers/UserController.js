@@ -1,6 +1,8 @@
 const { comparePassword } = require('../helpers/bcrypt');
 const { signToken } = require('../helpers/jwt');
 const { User } = require('../models');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client();
 
 module.exports = {
     async register(req, res, next) {
@@ -58,12 +60,35 @@ module.exports = {
         const { id } = req.params;
         try {
             const users = await User.findByPk(id);
-            if(!users){
-                throw ({name: `UserNotFound`, id})
+            if (!users) {
+                throw ({ name: `UserNotFound`, id })
             }
             res.status(200).json({ users })
         } catch (err) {
             next(err);
         };
     },
+
+    async loginGoogle(req, res, next) {
+        try {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.googleToken,
+                audience: "848600054102-tftpfkiph7b62bugt6284mloq4ckpau9.apps.googleusercontent.com",
+            });
+            const payload = ticket.getPayload();
+            const [user, created] = await User.findOrCreate({
+                where: { email: payload.email },
+                hooks: false,
+                defaults: {
+                    name: payload.name,
+                    email: payload.email,
+                    password: Math.random().toString()
+                },
+            });
+            const access_token = signToken({ id: user.id })
+            res.status(created ? 201 : 200).json({ access_token })
+        } catch (err) {
+            next(err)
+        }
+    }
 }
