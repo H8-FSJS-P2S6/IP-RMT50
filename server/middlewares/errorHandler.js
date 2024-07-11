@@ -41,6 +41,9 @@ function errorHandler(err, req, res, next) {
     case "InvalidUserToken":
       status = 401;
       message = "Invalid user token";
+    case "Already Premium":
+      status = 400;
+      message = "Already Premium";
       break;
     default:
       console.error(err);
