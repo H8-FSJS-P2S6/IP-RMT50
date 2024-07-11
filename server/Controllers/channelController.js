@@ -71,7 +71,7 @@ class channelController {
                 }
                 channel.dataValues.growth = channel.viewCount - previousDateViews[0][0][previousDate];
             }
-            console.log(allResults[0].dataValues.growth, "<================")
+        
             
             if (orderByGrowth) {
                 allResults.sort((a, b) => 
@@ -258,6 +258,7 @@ class channelController {
         try {
 
             const { googleToken } = req.body
+            // console.log(googleToken, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
             const ticket = await client.verifyIdToken({
                 idToken: googleToken,
                 audience: process.env.CLIENT_ID, 
