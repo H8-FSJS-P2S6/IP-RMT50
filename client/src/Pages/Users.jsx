@@ -68,6 +68,7 @@ function Users() {
       <table className="table">
         <thead className="thead">
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Username</th>
             <th scope="col">Role</th>
@@ -81,6 +82,7 @@ function Users() {
         <tbody>
           {users.map((user) => (
             <tr className="table-danger" key={user.id}>
+              <td>{user.id}</td>
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
@@ -108,7 +110,7 @@ function Users() {
                   onClick={() => handleDelete(user.id)}
                 ></a>
                 ||
-                <Link to="/users:id">
+                <Link to={"/updateUser/" + user.id}>
                   <i className="fa-solid fa-pen-to-square"></i>
                 </Link>
               </td>

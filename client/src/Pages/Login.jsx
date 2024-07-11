@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Login() {
@@ -20,9 +20,8 @@ export default function Login() {
           password,
         },
       });
-
-      navigate("/");
       localStorage.setItem("access_token", data.access_token);
+      navigate("/");
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -40,6 +39,44 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    window.google.accounts.id.initialize({
+      client_id:
+        "93865105873-6qniqqnnam8gs41ksqv0tk94qsieh6ek.apps.googleusercontent.com",
+      callback: async (response) => {
+        const googleToken = response.credential;
+        try {
+          const { data } = await axios.post(
+            "http://localhost:3000/login/google",
+            {
+              googleToken,
+            }
+          );
+          localStorage.setItem("access_token", data.access_token);
+          navigate("/");
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: `Selamat Datang ${username} 😊🙏`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } catch (err) {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Oops... Ada yang salah nih 😪",
+            text: err.message,
+          });
+        }
+      },
+    });
+    window.google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }
+    );
+
+  }, []);
   return (
     <>
       <section className="vh-100">
@@ -99,6 +136,8 @@ export default function Login() {
                     >
                       login
                     </button>
+                    <hr />
+                    <div id="buttonDiv"></div>
                   </div>
 
                   <p>

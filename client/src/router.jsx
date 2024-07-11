@@ -7,7 +7,7 @@ import VillagePage from "./Pages/Village";
 import Users from "./Pages/Users";
 import AddUser from "./Pages/addUser";
 import MainLayout from "./components/Layout";
-
+import UpdateUser from "./Pages/UpdateUser"
 export const isAlreadyLogin = () => {
   let token = localStorage.getItem("access_token");
   if (token) {
@@ -53,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/addUser",
         element: <AddUser />,
+      },
+      {
+        path: "/updateUser/:id",
+        element: <UpdateUser />,
       },
     ],
   },

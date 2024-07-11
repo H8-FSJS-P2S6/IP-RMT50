@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Dropdown, initMDB } from "mdb-ui-kit";
 import "../Css/Navbar.css";
 import "mdb-ui-kit/css/mdb.min.css";
+import axios from "axios";
 
 initMDB({ Dropdown });
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPremium, setIsPremium] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -30,102 +32,162 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  return (
-    <>
-      <div className="body-navbar">
-        <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-          <div className="container-fluid">
-            <span className="font-naruto text-lg font-bold tracking-wider text-orange-500 lg:text-xl">
-              N a r u t o
-            </span>
-            <div className="d-flex justify-content-center flex-grow-1">
-              <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link to="/">
-                    <button className="btn btn-link nav-link" type="button">
-                      Home
-                    </button>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/users">
-                    <button className="btn btn-link nav-link" type="button">
-                      User
-                    </button>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/Village">
-                    <button className="btn btn-link nav-link" type="button">
-                      Village
-                    </button>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <button className="btn btn-link nav-link" type="button">
-                    Character
-                  </button>
-                </li>
-              </ul>
-            </div>
+  const changeStatus = async () => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
 
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle d-flex align-items-center"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdolcNxLjMcG3Ga9sRBHm6TcXZW7KcrjrymwmFaOYQGAdgXPvnNQKjzIfQbtrenhoeGBg&usqp=CAU"
-                    className="rounded-circle"
-                    height={25}
-                    alt="Avatar"
-                    loading="lazy"
-                  />
-                </a>
-                <ul
-                  className="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      My profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    {isLoggedIn ? (
-                      <button
-                        className="dropdown-item"
-                        onClick={handleLogout}
-                        type="button"
-                      >
-                        Logout
-                      </button>
-                    ) : (
-                      <button
-                        className="dropdown-item"
-                        onClick={() => navigate("/login")}
-                        type="button"
-                      >
-                        Login
-                      </button>
-                    )}
-                  </li>
-                </ul>
+     const {data} = await axios.patch(
+        `http://localhost:3000/isPremium`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      setIsPremium(data.data.isPremium);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePayment = async () => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+
+      const { data } = await axios.post(
+        `http://localhost:3000/midtrans`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      
+      const cb = changeStatus;
+      window.snap.pay(data.token, {
+        onSuccess: function(result) {
+          alert("payment success!");
+          console.log(result);
+          cb();
+          setIsPremium(true)
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="body-navbar">
+      <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+        <div className="container-fluid">
+          <span className="font-naruto text-lg font-bold tracking-wider text-orange-500 lg:text-xl">
+            N a r u t o
+          </span>
+          <div className="d-flex justify-content-center flex-grow-1">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link to="/">
+                  <button className="btn btn-link nav-link" type="button">
+                    Home
+                  </button>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/users">
+                  <button className="btn btn-link nav-link" type="button">
+                    User
+                  </button>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/Village">
+                  <button className="btn btn-link nav-link" type="button">
+                    Village
+                  </button>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <button className="btn btn-link nav-link" type="button">
+                  Character
+                </button>
               </li>
             </ul>
           </div>
-        </nav>
-      </div>
-    </>
+          <button
+            onClick={handlePayment}
+            type="button"
+            className="btn btn-danger"
+            data-mdb-ripple-init
+          >
+            Buy Verify
+          </button>
+          {isPremium && (
+            <img
+              src="https://cdn-icons-png.freepik.com/256/11710/11710599.png?semt=ais_hybrid"
+              alt="isVervy"
+              style={{ width: "25px" }}
+            />
+          )}
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle d-flex align-items-center"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdolcNxLjMcG3Ga9sRBHm6TcXZW7KcrjrymwmFaOYQGAdgXPvnNQKjzIfQbtrenhoeGBg&usqp=CAU"
+                  className="rounded-circle"
+                  height={25}
+                  alt="Avatar"
+                  loading="lazy"
+                />
+              </a>
+
+              <ul
+                className="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <a className="dropdown-item" href="#">
+                    My profile
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    Settings
+                  </a>
+                </li>
+                <li>
+                  {isLoggedIn ? (
+                    <button
+                      className="dropdown-item"
+                      onClick={handleLogout}
+                      type="button"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <button
+                      className="dropdown-item"
+                      onClick={() => navigate("/login")}
+                      type="button"
+                    >
+                      Login
+                    </button>
+                  )}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   );
 }
