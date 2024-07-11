@@ -12,6 +12,15 @@ module.exports = {
         };
     },
 
+    async addUser(req, res, next) {
+        try {
+            const user = await User.create(req.body);
+            res.status(201).json({ id: user.id, email: user.email });
+        } catch (err) {
+            next(err);
+        };
+    },
+
     async login(req, res, next) {
         try {
             const { email, password } = req.body;
@@ -34,5 +43,27 @@ module.exports = {
         } catch (err) {
             next(err);
         };
-    }
+    },
+
+    async getUser(req, res, next) {
+        try {
+            const users = await User.findAll();
+            res.status(200).json({ users })
+        } catch (err) {
+            next(err);
+        };
+    },
+
+    async getUserById(req, res, next) {
+        const { id } = req.params;
+        try {
+            const users = await User.findByPk(id);
+            if(!users){
+                throw ({name: `UserNotFound`, id})
+            }
+            res.status(200).json({ users })
+        } catch (err) {
+            next(err);
+        };
+    },
 }

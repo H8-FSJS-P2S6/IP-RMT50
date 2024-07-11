@@ -48,13 +48,17 @@ function errorHandler(err, req, res, next) {
             status = 404
             message = `Weapon with id ${err.id} not found`
             break;
-            case `TeamNotFound`:
+        case `TeamNotFound`:
             status = 404
             message = `Team with id ${err.id} not found`
             break;
         case `Forbidden`:
             status = 404
             message = `You are not authorized`
+            break;
+        case `UserNotFound`:
+            status = 404
+            message = `User with id ${err.id} not found`
             break;
     }
     res.status(status).json({ message: message })
