@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import "../Css/Table.css";
+import {useSelector, useDispatch} from 'react-redux'
+import { setVillages } from '../features/village/villageSlice';
+
 
 function VillagePage() {
-  const [villages, setVillages] = useState([]);
+  // const [villages, setVillages] = useState([]);
+  const village = useSelector(state => state.village.villages)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     async function fetchVillages() {
@@ -16,7 +22,9 @@ function VillagePage() {
             Authorization: `Bearer ${token}`,
           },
         });
-        setVillages(response.data);
+        // setVillages(response.data);
+        dispatch(setVillages(response.data))
+        console.log(response)
       } catch (error) {
         console.error(error);
       }
@@ -43,7 +51,7 @@ function VillagePage() {
           </tr>
         </thead>
         <tbody>
-          {villages.map((village) => (
+          {village.map((village) => (
             <tr className="table-danger" key={village.id}>
               <td>{village.id}</td>
               <td>{village.name}</td>

@@ -4,7 +4,7 @@ import { Dropdown, initMDB } from "mdb-ui-kit";
 import "../Css/Navbar.css";
 import "mdb-ui-kit/css/mdb.min.css";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 initMDB({ Dropdown });
 
 export default function Navbar() {
@@ -76,6 +76,11 @@ export default function Navbar() {
       });
     } catch (error) {
       console.error(error);
+      Swal.fire({
+        title: "Kebanyakan Uang Bang? 🤔",
+        text: `Kamu sudah premium 😪!`,
+        icon: "question"
+      });
     }
   };
 
@@ -157,11 +162,6 @@ export default function Navbar() {
                 <li>
                   <a className="dropdown-item" href="#">
                     My profile
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Settings
                   </a>
                 </li>
                 <li>

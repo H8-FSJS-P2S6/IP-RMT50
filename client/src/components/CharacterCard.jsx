@@ -26,7 +26,6 @@ const CharacterCard = ({ character }) => {
         ) : (
           <p className="card-text">Abilities: Unknown Abilities</p>
         )}
-        <button className="btn btn-primary mt-3">Get Detail</button>
       </div>
     </div>
   );
