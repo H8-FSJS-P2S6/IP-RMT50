@@ -1,14 +1,16 @@
+require('dotenv').config();
 const YouTubeService = require('./YoutubeService');
 const moment = require('moment');
 const ChannelViews = require('../models').ChannelViews;
+const Channel = require('../models').Channel;
 const { sequelize } = require('../models');
 const queryInterface = sequelize.queryInterface;
 const { Sequelize, DataTypes } = require('sequelize');
 
 
 
-class UpdateService {
-    static async updateAllChannelViews(req, res) {
+
+     async function updateAllChannelViews(req, res) {
         const today = moment().format('YYYY-MM-DD');
 
         try {
@@ -26,14 +28,21 @@ class UpdateService {
                 attributes: ['channelId']
             });
 
-            let updatedCount = 0;
+
             let skippedCount = 0;
 
             for (const channel of channels) {
                 const views = await YouTubeService.getChannelViews(channel.channelId);
-                console.log(`ChannelId: ${channel.channelId}, views: ${views}`);
+                console.log(`UPDATE DATA RUNNING`);
+
+
 
                 if (views !== null) {
+                    let channelData = await Channel.findOne({ where: { channelId: channel.channelId } })
+                    let updated = await channelData.update({ viewCount: views })
+
+
+
                     const updateQuery = `
                     UPDATE "ChannelViews"
                     SET "${today}" = ${views}
@@ -41,20 +50,18 @@ class UpdateService {
                     RETURNING *;
                   `;
 
-                  await sequelize.query(updateQuery, {raw:true})
+                    await sequelize.query(updateQuery, { raw: true })
                 } else {
                     console.log(`Skipped channelId: ${channel.channelId} due to null views`);
                     skippedCount++;
                 }
             }
 
-            res.status(200).json({
-                message: 'Channel views update process completed'});
+
         } catch (error) {
             console.error('Error updating channel views:', error);
-            res.status(500).json({ error: 'Error updating channel views', details: error.message });
+
         }
     }
-}
 
-module.exports = UpdateService;
+module.exports = updateAllChannelViews

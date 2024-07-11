@@ -16,7 +16,7 @@ const client = new OAuth2Client();
 class channelController {
     static async getAllChannels(req, res, next) {
         try {
-            let { title, tag, orderByCreatedAt = "DESC", page=1 } = req.query
+            let { title, tag, orderByCreatedAt = "DESC", page = 1, orderByGrowth } = req.query
 
             let options = {
                 include: {
@@ -26,27 +26,66 @@ class channelController {
                             [Sequelize.literal('(SELECT row_to_json(cv) FROM (SELECT * FROM "ChannelViews" WHERE "ChannelViews"."channelId" = "Channel"."channelId") cv)'), 'all_columns']
                         ]
                     }
-                },
-                limit: 25,
-                offset: (page - 1) * 25
+                }
             }
-
+    
             if (title) {
                 options.where = { title: { [Op.iLike]: `%${title}%` } };
             }
             if (tag) {
-                options.include.where = { tag : { [Op.iLike]: `%${title}%` } }
+                options.include.where = { tag: { [Op.iLike]: `%${title}%` } }
             }
-            if (orderByCreatedAt){
-                options.order = [['createdAt', `${orderByCreatedAt}`]] // isinya ASC atau DESC seperti di soal
+            if (orderByCreatedAt && !orderByGrowth) {
+                options.order = [['createdAt', `${orderByCreatedAt}`]]
             }
-
-
-            let result = await Channel.findAll(options)
+    
+            // Fetch all results without pagination
+            let allResults = await Channel.findAll(options)
+            console.log(allResults[0])
+    
+            const dateColumns = await sequelize.query(
+                `SELECT column_name 
+                 FROM information_schema.columns 
+                 WHERE table_name = 'ChannelViews' 
+                 AND column_name ~ '^\\d{4}-\\d{2}-\\d{2}$' 
+                 ORDER BY column_name DESC`,
+                { 
+                    raw: true,
+                }
+            );
+            const columnNames = dateColumns[0].map(col => col.column_name);
+            const previousDate = columnNames[1];
+    
+            // Calculate growth for all channels
+            for (let channel of allResults) {
+                const previousDateViews = await sequelize.query(
+                    `SELECT "${previousDate}"
+                    FROM "ChannelViews"
+                    WHERE "channelId" = '${channel.channelId}'`,
+                    {raw: true}
+                )
+                if(previousDateViews[0][0] == null || !previousDateViews[0][0][previousDate]){
+                    channel.dataValues.growth = 0
+                    continue
+                }
+                channel.dataValues.growth = channel.viewCount - previousDateViews[0][0][previousDate];
+            }
+            console.log(allResults[0])
+    
+            // Sort by growth if requested
+            if (orderByGrowth) {
+                allResults.sort((a, b) => orderByGrowth.toUpperCase() === 'DESC' ? b.growth - a.growth : a.growth - b.growth);
+            }
+    
+            // Apply pagination
+            const totalCount = allResults.length;
+            const paginatedResults = allResults.slice((page - 1) * 25, page * 25);
+    
             res.status(200).json({
-                result : result,
+                result: paginatedResults,
                 page: page,
-				maxPage: Math.ceil(result.count/25),})
+                maxPage: Math.ceil(totalCount / 25),
+            })
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: "Internal Service Error" })
@@ -56,9 +95,7 @@ class channelController {
     static async getOneChannel(req, res, next) {
         try {
             const { channelId } = req.params
-            console.log(channelId, "<=============")
             let result = await Channel.findOne({where:{channelId}})
-            console.log(result)
             if (!result) {
                 res.send("Channel not found")
             }
@@ -71,27 +108,15 @@ class channelController {
         }
     }
 
-    static async truncateChannel(req, res, next) {
-        try {
-            let result = await Channel.truncate()
-            res.status(200).json(result)
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ message: "Internal Service Error" })
-        }
-    }
-
-    static async getoneChannelYoutube(req, res) {
-        try {
-            let result = await YoutubeService.getChannelViews("UCEVKaZpv7xw1jOVN6422z5A")
-            res.send(result)
-        } catch (error) {
-            res.send(error)
-        }
-    }
-
     static async AddChannel(req, res) {
         try {
+            let user = await User.findByPk(req.user.id)
+
+            if (!user.id || user.role != "admin") {
+                res.status(403).json({message:"You must be an admin to do that"})
+                return
+            }
+
             const today = moment().format('YYYY-MM-DD');
             let { link, tag } = req.body
             let result = await YoutubeService.getChannelIdFromLink(link)
@@ -103,7 +128,7 @@ class channelController {
                 description: result.snippet.description,
                 customUrl: result.snippet.customUrl,
                 publishedAt: result.snippet.publishedAt,
-                thumbnails: result.snippet.thumbnails.default.url,
+                thumbnails: result.snippet.thumbnails.high.url,
                 country: result.snippet.country,
                 viewCount: result.statistics.viewCount,
                 subscriberCount: result.statistics.subscriberCount,
@@ -118,12 +143,12 @@ class channelController {
                 tag
             })
 
-            // let updateQuery =
-            //     `UPDATE "ChannelViews" 
-            //     SET "${today}" = ${result.statistics.viewCount}
-            //      WHERE "channelId" = '${result.id}'
-            //     RETURNING *;
-            //     `
+            let updateQuery =
+                `UPDATE "ChannelViews" 
+                SET "${today}" = ${result.statistics.viewCount}
+                 WHERE "channelId" = '${result.id}'
+                RETURNING *;
+                `
 
             await sequelize.query(updateQuery, { raw: true })
 
@@ -139,6 +164,12 @@ class channelController {
     }
     static async EditChannel(req, res) {
         try {
+            let user = await User.findByPk(req.user.id)
+
+            if (!user.id || user.role != "admin") {
+                res.status(403).json({message:"You must be an admin to do that"})
+                return
+            }
             let { channelId } = req.params
             let { tag } = req.body
             let channel = await ChannelViews.findOne({where:{channelId}})
@@ -147,12 +178,8 @@ class channelController {
                 return
             }
             console.log(channel.channelName)
-            let updated = channel.update({tag})
-            // let result = await ChannelViews.update({
-            //     tag
-            // }, {
-            //     where: { channelId },
-            // });
+            let updated = await channel.update({tag})
+
             res.status(200).json({ message: "Edit Success!", result:updated})
         } catch (error) {
             console.log(error)
@@ -162,6 +189,13 @@ class channelController {
 
     static async DeleteChannel(req, res) {
         try {
+            let user = await User.findByPk(req.user.id)
+
+            if (!user.id || user.role != "admin") {
+                res.status(403).json({message:"You must be an admin to do that"})
+                return
+            }
+
             let { channelId } = req.params
 
             await ChannelViews.destroy({
