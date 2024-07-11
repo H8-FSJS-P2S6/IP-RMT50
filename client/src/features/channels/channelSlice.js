@@ -6,7 +6,10 @@ const initialState = {
     channels: [],
     channel: {},
     showAddModal: false,
-    showEditModal: false
+    showEditModal: false,
+    maxPage: 0,
+    page: 1,
+    orderBy: ""
 }
 
 export const channelSlice = createSlice({
@@ -28,22 +31,47 @@ export const channelSlice = createSlice({
         },
         setEditModal: (state, { payload }) => {
             state.showEditModal = payload
-        }
+        },
+        setMaxPage: (state, { payload }) => {
+            state.maxPage = payload
+        },
+        setPage: (state, { payload }) => {
+            state.page = payload
+        },
+        setOrderBy: (state, { payload }) => {
+            state.orderBy = payload
+        },
+        setNextPage: (state) => {
+            if (state.page < state.maxPage){
+                state.page += 1
+            }
+
+        },
+        setPreviousPage: (state) => {
+            if (state.page > 1){
+                state.page -= 1
+            }
+
+        },
     }
 })
 
-export const { setLoading, setChannels, setChannel, setAddModal, setEditModal } = channelSlice.actions
+export const { setLoading, setChannels, setChannel, setAddModal, setEditModal, setMaxPage, setPage, setOrderBy, setNextPage, setPreviousPage } = channelSlice.actions
 
 export default channelSlice.reducer
 
-export const fetchChannels = (search) => {
+export const fetchChannels = (search, orderBy, page) => {
     return async function (dispatch) {
-        dispatch(setLoading(true))
+        // dispatch(setLoading(true))
         let url = `http://localhost:3000/allChannels/?`
         if (search) url += `title=${search}&`
+        if (page) url += `page=${page}&`
+        url+=`${orderBy}=DESC`
         const response = await axios.get(url);
+        console.log(response.data.maxPage)
+        dispatch(setMaxPage(response.data.maxPage))
         dispatch(setChannels(response.data.result))
-        dispatch(setLoading(false))
+        // dispatch(setLoading(false))
     }
 }
 
@@ -71,3 +99,23 @@ export const handleEditModal2 = (value) => {
         dispatch(setEditModal(value))
     }
 }
+
+export const handleOrderBy2 = (value) => {
+    return async function (dispatch) {
+        console.log(value,"<==slicee")
+        dispatch(setOrderBy(value))
+    }
+}
+
+export const handleNextPage2 = () => {
+    return async function (dispatch) {
+        dispatch(setNextPage())
+    }
+}
+
+export const handlePreviousPage2 = () => {
+    return async function (dispatch) {
+        dispatch(setPreviousPage())
+    }
+}
+

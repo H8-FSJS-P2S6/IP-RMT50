@@ -24,6 +24,7 @@ function EditChannel({ onClose, channelId, selectedTag }) {
       console.log(response.data);
       onClose();
     } catch (error) {
+      toast.error(error.response.data.message)
       console.log(error)
     }
   };

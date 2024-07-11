@@ -12,10 +12,16 @@ const YouTuberDetailsPage = () => {
   // console.log(channelId)
 
   useEffect(() => {
-    // console.log(channel, "<=====before")
     dispatch(fetchOneChannel(channelId))
-    console.log(channel.found.thumbnails, "<=====after")
   }, [channelId, dispatch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!channel.found) {
+    return <div>Error loading channel data. Please try again.</div>;
+  }
 
 
 

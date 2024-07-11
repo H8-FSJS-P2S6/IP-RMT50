@@ -16,7 +16,7 @@ const client = new OAuth2Client();
 class channelController {
     static async getAllChannels(req, res, next) {
         try {
-            let { title, tag, orderByCreatedAt = "DESC", page = 1, orderByGrowth } = req.query
+            let { title, tag, orderByCreatedAt, page = 1, orderByGrowth, orderByViewCount } = req.query
 
             let options = {
                 include: {
@@ -35,11 +35,13 @@ class channelController {
             if (tag) {
                 options.include.where = { tag: { [Op.iLike]: `%${title}%` } }
             }
-            if (orderByCreatedAt && !orderByGrowth) {
+            if (orderByCreatedAt) {
                 options.order = [['createdAt', `${orderByCreatedAt}`]]
             }
+            if (orderByViewCount) {
+                options.order = [['viewCount', `DESC`]]
+            }
     
-            // Fetch all results without pagination
             let allResults = await Channel.findAll(options)
             console.log(allResults[0])
     
@@ -56,7 +58,6 @@ class channelController {
             const columnNames = dateColumns[0].map(col => col.column_name);
             const previousDate = columnNames[1];
     
-            // Calculate growth for all channels
             for (let channel of allResults) {
                 const previousDateViews = await sequelize.query(
                     `SELECT "${previousDate}"
@@ -70,14 +71,15 @@ class channelController {
                 }
                 channel.dataValues.growth = channel.viewCount - previousDateViews[0][0][previousDate];
             }
-            console.log(allResults[0])
-    
-            // Sort by growth if requested
+            console.log(allResults[0].dataValues.growth, "<================")
+            
             if (orderByGrowth) {
-                allResults.sort((a, b) => orderByGrowth.toUpperCase() === 'DESC' ? b.growth - a.growth : a.growth - b.growth);
+                allResults.sort((a, b) => 
+                    orderByGrowth.toUpperCase() === 'DESC' ? b.dataValues.growth - a.dataValues.growth : a.dataValues.growth - b.dataValues.growth
+                );
             }
     
-            // Apply pagination
+            // pagination
             const totalCount = allResults.length;
             const paginatedResults = allResults.slice((page - 1) * 25, page * 25);
     
@@ -89,7 +91,7 @@ class channelController {
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: "Internal Service Error" })
-        }
+        } 
     }
 
     static async getOneChannel(req, res, next) {
@@ -120,7 +122,10 @@ class channelController {
             const today = moment().format('YYYY-MM-DD');
             let { link, tag } = req.body
             let result = await YoutubeService.getChannelIdFromLink(link)
-            console.log(today)
+            if(result == null){
+                res.status(404).json({message:"Sorry, we can't find that channel!"})
+                return
+            }
 
             let addToChannel = await Channel.create({
                 channelId: result.id,
@@ -159,6 +164,7 @@ class channelController {
                 res.json({ message: "Channel already exists" })
                 return
             }
+            console.log(error.name)
             res.status(500).json({ message: "Internal Service Error" })
         }
     }

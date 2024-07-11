@@ -1,14 +1,21 @@
-import { fetchChannels, handleAddModal2 } from '../features/channels/channelSlice';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 function Navbar() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     
+
+    const handleLogout = () => {
+        localStorage.removeItem("accessToken");
+        navigate(`/login`)
+    };
+
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a
-                    href="https://flowbite.com/"
-                    className="flex items-center space-x-3 rtl:space-x-reverse"
-                >
+                <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img
                         src="https://flowbite.com/docs/images/logo.svg"
                         className="h-8"
@@ -17,7 +24,7 @@ function Navbar() {
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                         Flowbite
                     </span>
-                </a>
+                </Link>
                 <button
                     data-collapse-toggle="navbar-default"
                     type="button"
@@ -53,44 +60,46 @@ function Navbar() {
                                 Home
                             </Link>
                         </li>
+                        {localStorage.getItem("accessToken") ? (
+                            <li>
+                                <button
+                                    onClick={handleLogout}
+                                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                >
+                                    Logout
+                                </button>
+                            </li>
+                        ) : (
+                            <li>
+                                <Link
+                                    to="/login"
+                                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                        )}
                         <li>
-                            <Link
-                                to="/addChannel"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                            >
-                                Add Channel
-                            </Link>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                            >
-                                Services
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
+                            {/* <Link
+                                to="/pricing"
                                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                             >
                                 Pricing
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                to="/contact"
                                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                             >
                                 Contact
-                            </a>
+                            </Link> */}
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;

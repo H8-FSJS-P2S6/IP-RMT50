@@ -3,7 +3,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
-
 function AddChannel({ onClose, id }) {
 
 
@@ -29,11 +28,10 @@ function AddChannel({ onClose, id }) {
         }
       })
 
-
       console.log(response.data);
       onClose();
     } catch (error) {
-      toast.error(error.data.message)
+      toast.error(error.response.data.message)
       console.log(error)
     }
   };

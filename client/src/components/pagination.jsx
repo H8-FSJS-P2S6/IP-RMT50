@@ -13,7 +13,7 @@ const Pagination = ({ youtubersPerPage, totalYoutubers, currentPage, setCurrentP
 
           <li key={1}>
             <button
-            //   onClick={() => setCurrentPage(number)}
+              onClick={() => setCurrentPage(number)}
               className={`px-4 py-2 rounded ${
                 // currentPage === number
                   'bg-blue-500 text-white'

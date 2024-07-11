@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import FilterDropdown from '../components/FilterDropdown';
 import Pagination from '../components/pagination';
 import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import { fetchChannels, handleAddModal2, handleEditModal2 } from '../features/channels/channelSlice';
+import { fetchChannels, handleAddModal2, handleEditModal2, handleOrderBy2, handleNextPage2, handlePreviousPage2 } from '../features/channels/channelSlice';
 import { useNavigate } from 'react-router-dom';
 import AddChannel from './AddChannel';
 import EditChannel from './EditChannel';
@@ -11,33 +11,38 @@ import axios from 'axios'
 
 function Homepage() {
     const navigate = useNavigate()
+    const isLoading = useSelector(state => state.channel.loading)
     const channels = useSelector(state => state.channel.channels)
     const showAddModal = useSelector(state => state.channel.showAddModal)
     const showEditModal = useSelector(state => state.channel.showEditModal)
+    const page = useSelector(state=>state.channel.page)
+    const maxPage= useSelector(state=>state.channel.maxPage)
     const dispatch = useDispatch()
+    // console.log(channels)
+
 
     const [search, setSearch] = useState()
     const [channelId, setchannelId] = useState('');
-    const [tag, settag] = useState(1)
-    // const [maxPage, setmaxPage] = useState(0)
+    const [tag, settag] = useState('')
+    const orderBy = useSelector(state => state.channel.orderBy)
 
     function handleDetails(channelId) {
         navigate(`/details/${channelId}`)
     }
 
-    function handleAdd(value){
+    function handleAdd(value) {
         console.log(value, "<===Homepage")
         dispatch(handleAddModal2(true))
         console.log(showAddModal)
     }
 
-    function handleEdit(channelId, tag){
+    function handleEdit(channelId, tag) {
         dispatch(handleEditModal2(true))
         setchannelId(channelId)
         settag(tag)
     }
 
-    function onClose(){
+    function onClose() {
         dispatch(handleAddModal2(false))
         dispatch(handleEditModal2(false))
         setchannelId(null)
@@ -46,21 +51,26 @@ function Homepage() {
 
 
     useEffect(() => {
-        dispatch(fetchChannels(search))
-        console.log(search)
-    }, [search,tag]);
+        dispatch(fetchChannels(search, orderBy, page))
+        console.log(orderBy)
+    }, [search, tag, orderBy, page]);
 
-    async function handleDelete(channelId){
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    async function handleDelete(channelId) {
         try {
-          let response = await axios.delete(`http://localhost:3000/channel/${channelId}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            }
-          })
-          console.log(response.data);
-          dispatch(fetchChannels(search))
+            let response = await axios.delete(`http://localhost:3000/channel/${channelId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+            console.log(response.data);
+            dispatch(fetchChannels(search))
         } catch (error) {
-          console.log(error)
+            toast.error(error.response.data.message)
+            console.log(error)
         }
     }
 
@@ -81,11 +91,21 @@ function Homepage() {
                         type="text"
                         placeholder="Search Clippers..."
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => dispatch(setSearch(e.target.value))}
                         className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </form>
-                <FilterDropdown />
+                <select
+                    className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={orderBy} onChange={(e) => dispatch(handleOrderBy2(e.target.value))}
+                >
+                    <option value="">Order by</option>
+                    <option key="growth" value="orderByGrowth">Growth</option>
+                    <option key="totalViews" value="orderByViewCount">Total Views</option>
+                    <option key="createdAt" value="orderByCreatedAt">Channel Added Date</option>
+
+                </select>
+
             </div>
 
             {showAddModal && <AddChannel onClose={onClose} />}
@@ -94,7 +114,7 @@ function Homepage() {
             {channels.map((channel, index) => (
                 <div key={index} className="bg-white shadow-md rounded-lg p-4 flex items-center hover:bg-gray-100">
                     <div className="mr-4 text-2xl font-bold text-gray-500 w-10 text-center">
-                        {index + 1}
+                        {(index + 1)+(25*(page-1))}
                     </div>
                     <img onClick={() => handleDetails(channel.channelId)}
                         src={channel.thumbnails}
@@ -106,14 +126,18 @@ function Homepage() {
                         <p className="text-sm text-gray-600 mb-2">
                             {channel.customUrl} • {channel?.ChannelView?.tag}
                         </p>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-3 gap-2">
                             <p className="text-lg">
                                 <span className="font-semibold">Views:</span> {channel.viewCount.toLocaleString()}
-                                <span className="text-green-500 ml-2">(+{"859453".toLocaleString()})</span>
+                                <span className="text-green-500 ml-2">(+{channel.growth.toLocaleString()})</span>
                             </p>
                             <p className="text-lg">
                                 <span className="font-semibold">Subs:</span> {channel.subscriberCount.toLocaleString()}
                                 <span className="text-green-500 ml-2">(+{"609".toLocaleString()})</span>
+                            </p>
+                            <p className="text-lg">
+                                <span className="font-semibold">Video Count:</span> {channel.videoCount.toLocaleString()}
+                                <span className="text-green-500 ml-2">(+{"8".toLocaleString()})</span>
                             </p>
                         </div>
                     </div>
@@ -123,20 +147,29 @@ function Homepage() {
                         >
                             Update
                         </button>
-                        <button onClick={()=> handleDelete(channel.channelId)}
+                        <button onClick={() => handleDelete(channel.channelId)}
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Delete
                         </button>
-                        
+
                     </div>
-                    
+
                 </div>
             ))}
-            <Pagination
-
-
-            />
+            <div className="flex justify-center mt-8">
+                <button onClick={() => dispatch(handlePreviousPage2())}
+                    className="mx-2 px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+                >
+                    Previous
+                </button>
+                <span className="mx-2 py-2">Page {page} of {maxPage}</span>
+                <button onClick={() => dispatch(handleNextPage2())}
+                    className="mx-2 px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+                >
+                    Next
+                </button>
+            </div>
         </div>
     )
 }
