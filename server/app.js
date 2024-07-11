@@ -1,4 +1,6 @@
-require('dotenv').config();
+if(process.env.NODE_ENV !== "production"){
+  require('dotenv').config();
+}
 const express = require('express')  
 const cors = require('cors');
 const errorHandler = require('./middlewares/errorHandler')
@@ -42,6 +44,4 @@ app.delete('/channel/:channelId', channelController.DeleteChannel)
 
 app.use(errorHandler)
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+module.exports = app;

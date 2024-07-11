@@ -21,7 +21,7 @@ function Homepage() {
     // console.log(channels)
 
 
-    const [search, setSearch] = useState()
+    const [search, setSearch] = useState('')
     const [channelId, setchannelId] = useState('');
     const [tag, settag] = useState('')
     const orderBy = useSelector(state => state.channel.orderBy)

@@ -35,8 +35,11 @@ class YouTubeService {
 
 
     async getChannelIdFromLink(url) {
+        console.log(url,"<===========url")
         const urlParts = url.split("/");
+        console.log(urlParts,"<===========urlParts")
         const username = urlParts[urlParts.length - 1]
+        console.log(username,"<===========username")
 
         try {
             const response = await this.youtube.channels.list({

@@ -130,7 +130,7 @@ class channelController {
             let addToChannel = await Channel.create({
                 channelId: result.id,
                 title: result.snippet.title,
-                description: result.snippet.description,
+                description: result.snippet.description.substring(0,255),
                 customUrl: result.snippet.customUrl,
                 publishedAt: result.snippet.publishedAt,
                 thumbnails: result.snippet.thumbnails.high.url,
@@ -161,11 +161,11 @@ class channelController {
         } catch (error) {
             console.log(error)
             if (error.name == 'SequelizeUniqueConstraintError') {
-                res.json({ message: "Channel already exists" })
+                res.status(400).json({ message: "Channel already exists" })
                 return
             }
             console.log(error.name)
-            res.status(500).json({ message: "Internal Service Error" })
+            res.status(500).json({ message: error })
         }
     }
     static async EditChannel(req, res) {
