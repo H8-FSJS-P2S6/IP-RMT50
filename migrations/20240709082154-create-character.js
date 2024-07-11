@@ -24,6 +24,9 @@ module.exports = {
       wiki_url: {
         type: Sequelize.STRING
       },
+      TeamId: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

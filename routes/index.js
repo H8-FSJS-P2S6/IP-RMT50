@@ -1,4 +1,4 @@
-const { getParty, createParty, createTeam, updateParty, deleteParty, updateTeam } = require('../controllers/PartyController');
+const { getParty, createParty, createTeam, updateParty, deleteParty, updateTeam, getCharacter } = require('../controllers/PartyController');
 const { getWeapons, getWeaponById } = require('../controllers/PublicConroller');
 const { register, login, getUser, getUserById, addUser, loginGoogle } = require('../controllers/UserController');
 const { authentication } = require('../middlewares/authentication');
@@ -13,6 +13,7 @@ router.post('/add-user', addUser);
 
 router.use(authentication);
 
+router.get('/characters', getCharacter);
 router.get('/users', getUser);
 router.get('/users/:id', getUserById);
 router.post('/register', isAdmin, register);

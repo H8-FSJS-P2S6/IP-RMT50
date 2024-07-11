@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     rarity: DataTypes.STRING,
     weapon: DataTypes.STRING,
     vision: DataTypes.STRING,
-    wiki_url: DataTypes.STRING
+    wiki_url: DataTypes.STRING,
+    TeamId: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Character',

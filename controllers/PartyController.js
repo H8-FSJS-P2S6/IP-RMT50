@@ -1,4 +1,4 @@
-const { Party, Team } = require('../models');
+const { Party, Team, Character } = require('../models');
 
 module.exports = {
     async getParty(req, res, next) {
@@ -12,6 +12,16 @@ module.exports = {
         } catch (err) {
             next(err);
         };
+    },
+
+    async getCharacter(req, res, next) {
+        try {
+            const data = await Character.findAll();
+            res.status(200).json({ data })
+        } catch (err) {
+            // next(err)
+            console.log(err)
+        }
     },
 
     async createParty(req, res, next) {

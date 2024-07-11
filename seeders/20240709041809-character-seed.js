@@ -13,6 +13,7 @@ module.exports = {
       const response = await axios.request(options)
       response.data.results.map((e) => {
         e.createdAt = e.updatedAt = new Date();
+        e.TeamId = ''
         return e
       })
       await queryInterface.bulkInsert('Characters', response.data.results);
