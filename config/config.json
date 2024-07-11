@@ -15,6 +15,5 @@
     "logging": false
   },
   "production": {
-    "use_env_variable": "postgresql://postgres.qdmpuyahuizqllmemvct:ysf.mPYzkZ6@7!G@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
-  }
+    "use_env_variable": "DATABASE_URL"}
 }
