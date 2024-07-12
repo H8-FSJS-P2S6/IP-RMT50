@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "CharacterId": 1,
+        "WeaponId": 4,
+        "PartyId": 1
+    },
+    {
+        "id": 2,
+        "CharacterId": 1,
+        "WeaponId": 4,
+        "PartyId": 1
+    },
+    {
+        "id": 3,
+        "CharacterId": 1,
+        "WeaponId": 4,
+        "PartyId": 1
+    },
+    {
+        "id": 4,
+        "CharacterId": 1,
+        "WeaponId": 4,
+        "PartyId": 1
+    },
+    {
+        "id": 5,
+        "CharacterId": 1,
+        "WeaponId": 4,
+        "PartyId": 3
+    }
+]
