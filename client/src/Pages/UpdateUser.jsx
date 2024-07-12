@@ -11,7 +11,7 @@ export default function UpdateUser() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://localhost:3000/users/" + id, 
+      url: "https://naruto.revirifaldi.my.id/" + id, 
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },
@@ -33,7 +33,7 @@ export default function UpdateUser() {
     try {
       await axios({
         method: "PUT",
-        url: "http://localhost:3000/users/" + id,
+        url: "https://naruto.revirifaldi.my.id/users/" + id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
         },

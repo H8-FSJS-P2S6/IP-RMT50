@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Dropdown, initMDB } from "mdb-ui-kit";
-import "../Css/Navbar.css";
-import "mdb-ui-kit/css/mdb.min.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import "../Css/Navbar.css";
+import "mdb-ui-kit/css/mdb.min.css";
 initMDB({ Dropdown });
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
+  const [textColor, setTextColor] = useState("#12e9f8");
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -27,6 +28,14 @@ export default function Navbar() {
 
     const storedIsPremium = localStorage.getItem("isPremium");
     setIsPremium(storedIsPremium === "true");
+
+   
+    const interval = setInterval(() => {
+      const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+      setTextColor(randomColor);
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleLogout = () => {
@@ -40,7 +49,7 @@ export default function Navbar() {
       const accessToken = localStorage.getItem("access_token");
 
       const { data } = await axios.patch(
-        `http://localhost:3000/isPremium`,
+        `https://naruto.revirifaldi.my.id/isPremium`,
         {},
         {
           headers: {
@@ -61,7 +70,7 @@ export default function Navbar() {
       const accessToken = localStorage.getItem("access_token");
 
       const { data } = await axios.post(
-        `http://localhost:3000/midtrans`,
+        `https://naruto.revirifaldi.my.id/midtrans`,
         {},
         {
           headers: {
@@ -76,7 +85,7 @@ export default function Navbar() {
           alert("payment success!");
           console.log(result);
           cb();
-          localStorage.setItem("isPremium", true)
+          localStorage.setItem("isPremium", true);
           setIsPremium(true);
         },
       });
@@ -94,7 +103,10 @@ export default function Navbar() {
     <div className="body-navbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div className="container-fluid">
-          <span className="font-naruto text-lg font-bold tracking-wider text-orange-500 lg:text-xl">
+          <span
+            className="font-naruto text-lg font-bold tracking-wider"
+            style={{ color: textColor }}
+          >
             N a r u t o
           </span>
           <div className="d-flex justify-content-center flex-grow-1">

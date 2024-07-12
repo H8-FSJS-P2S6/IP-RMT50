@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import "../Css/CharacterCard.css";
 
 const CharacterCard = ({ character }) => {
-  // console.log(character)
   const hasJutsu =
     character && character.abilities && character.abilities.length > 0;
 

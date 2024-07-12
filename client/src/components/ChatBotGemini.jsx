@@ -13,7 +13,7 @@ const GeminiChatBot = () => {
       setError(null);
 
       try {
-        const response = await axios.post("http://localhost:3000/gemini", {
+        const response = await axios.post("https://naruto.revirifaldi.my.id/gemini", {
           naruto,
         });
         setResult(response.data);

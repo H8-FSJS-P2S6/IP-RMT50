@@ -17,7 +17,7 @@ export default function Register() {
     try {
       await axios({
         method: "post",
-        url: "http://localhost:3000/register",
+        url: "https://naruto.revirifaldi.my.id/register",
         data: {
           email,
           password,

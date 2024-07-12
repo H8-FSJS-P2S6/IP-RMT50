@@ -33,7 +33,7 @@ export default function AddUser() {
     };
 
     try {
-      await axios.post("http://localhost:3000/users", user, {
+      await axios.post("https://naruto.revirifaldi.my.id/users", user, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
         },

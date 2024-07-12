@@ -27,7 +27,7 @@ const HomePage = () => {
     try {
       const accessToken = localStorage.getItem('access_token');
 
-      const { data } = await axios.get('http://localhost:3000/characters', {
+      const { data } = await axios.get('https://naruto.revirifaldi.my.id/characters', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

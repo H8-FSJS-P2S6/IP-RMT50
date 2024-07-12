@@ -12,7 +12,7 @@ function Users() {
         const token = localStorage.getItem("access_token");
         const response = await axios({
           method: "GET",
-          url: "http://localhost:3000/users",
+          url: "https://naruto.revirifaldi.my.id/users",
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -31,7 +31,7 @@ function Users() {
       const token = localStorage.getItem("access_token");
       await axios({
         method: "DELETE",
-        url: `http://localhost:3000/users/${id}`,
+        url: `https://naruto.revirifaldi.my.id/users/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

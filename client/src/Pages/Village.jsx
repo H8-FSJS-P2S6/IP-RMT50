@@ -17,7 +17,7 @@ function VillagePage() {
         const token = localStorage.getItem("access_token");
         const response = await axios({
           method: "GET",
-          url: `http://localhost:3000/villages`,
+          url: `https://naruto.revirifaldi.my.id/villages`,
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -14,7 +14,7 @@ export default function Login() {
     try {
       const { data } = await axios({
         method: "post",
-        url: "http://localhost:3000/login",
+        url: "https://naruto.revirifaldi.my.id/login",
         data: {
           email,
           password,
@@ -47,7 +47,7 @@ export default function Login() {
         const googleToken = response.credential;
         try {
           const { data } = await axios.post(
-            "http://localhost:3000/login/google",
+            "https://naruto.revirifaldi.my.id/login/google",
             {
               googleToken,
             }
