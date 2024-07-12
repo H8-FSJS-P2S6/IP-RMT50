@@ -6,7 +6,7 @@ module.exports = {
             const party = await Party.findAll({
                 where: { UserId: req.user.id },
                 attributes: { exclude: ['createdAt', 'updatedAt'] },
-                include: [{ model: Team, attributes: { exclude: ['id', 'PartyId', 'createdAt', 'updatedAt'] } }]
+                include: [{ model: Team, attributes: { exclude: ['createdAt', 'updatedAt'] } }]
             });
             res.status(200).json({ party });
         } catch (err) {
@@ -19,15 +19,24 @@ module.exports = {
             const data = await Character.findAll();
             res.status(200).json({ data })
         } catch (err) {
-            // next(err)
-            console.log(err)
+            next(err)
+        }
+    },
+
+    async getCharacterById(req, res, next) {
+        const { id } = req.params
+        try {
+            const data = await Character.findByPk(id);
+            res.status(200).json({ data })
+        } catch (err) {
+            next(err)
         }
     },
 
     async createParty(req, res, next) {
         try {
             const checking = await Party.findAll({ where: { UserId: req.user.id }, raw: true })
-            if (checking.length > 3) {
+            if (checking.length > 0) {
                 throw ({ name: `Party Full` });
             };
             const party = await Party.create({ UserId: req.user.id });
@@ -55,11 +64,11 @@ module.exports = {
         const { id } = req.params
         try {
             const checking = await Team.findAll({ where: { PartyId: id } });
-            if (checking.length > 4) {
+            if (checking.length > 3) {
                 throw ({ name: `Team Full` })
             };
             const team = await Team.create({
-                ...req.body, PartyId: id
+                ...req.body, PartyId: id,
             });
             res.status(201).json({ team });
         } catch (err) {
