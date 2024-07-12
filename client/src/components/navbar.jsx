@@ -120,11 +120,6 @@ export default function Navbar() {
                   </button>
                 </Link>
               </li>
-              <li className="nav-item">
-                <button className="btn btn-link nav-link" type="button">
-                  Character
-                </button>
-              </li>
             </ul>
           </div>
           <button
