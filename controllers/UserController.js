@@ -38,7 +38,7 @@ module.exports = {
             };
             const checkToken = comparePassword(password, user.password);
             if (!checkToken) {
-                throw ({ name: `pass fail` })
+                throw ({ name: `pass false` })
             };
             const token = signToken({ id: user.id })
             res.status(200).json({ access_token: token })
