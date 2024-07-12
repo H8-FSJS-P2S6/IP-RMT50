@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     title: DataTypes.STRING,
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     customUrl: DataTypes.STRING,
     publishedAt: DataTypes.DATE,
     thumbnails: DataTypes.STRING,

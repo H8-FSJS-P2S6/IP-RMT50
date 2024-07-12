@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1720704920370" clover="3.2.0">
-  <project timestamp="1720704920370" name="All files">
+<coverage generated="1720755555265" clover="3.2.0">
+  <project timestamp="1720755555265" name="All files">
     <metrics statements="328" coveredstatements="176" conditionals="88" coveredconditionals="30" methods="35" coveredmethods="20" elements="451" coveredelements="226" complexity="0" loc="328" ncloc="328" packages="6" files="13" classes="13"/>
     <package name="server">
       <metrics statements="27" coveredstatements="24" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="0"/>
@@ -165,16 +165,16 @@
         <line num="250" count="0" type="stmt"/>
         <line num="252" count="0" type="stmt"/>
         <line num="253" count="0" type="stmt"/>
-        <line num="258" count="2" type="stmt"/>
-        <line num="260" count="2" type="stmt"/>
-        <line num="262" count="2" type="stmt"/>
+        <line num="258" count="1" type="stmt"/>
+        <line num="260" count="1" type="stmt"/>
+        <line num="262" count="1" type="stmt"/>
         <line num="266" count="0" type="stmt"/>
         <line num="267" count="0" type="stmt"/>
         <line num="269" count="0" type="stmt"/>
         <line num="277" count="0" type="stmt"/>
         <line num="278" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="280" count="2" type="stmt"/>
-        <line num="281" count="2" type="stmt"/>
+        <line num="280" count="1" type="stmt"/>
+        <line num="281" count="1" type="stmt"/>
         <line num="286" count="2" type="stmt"/>
       </file>
     </package>
@@ -355,7 +355,7 @@
         <line num="55" count="0" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
       </file>
       <file name="YoutubeService.js" path="C:\dev\Hacktiv8\w11\ClipProject\server\services\YoutubeService.js">
         <metrics statements="26" coveredstatements="12" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="2"/>

@@ -39,7 +39,7 @@ describe("GET/allChannels", () => {
         let { status, _body } = await request(app)
             .get(`/allChannels`)   
 
-        expect(status).toBe(500)
+        expect(status).toBe(200)
 
     })
 })
