@@ -75,7 +75,6 @@ export default function Login() {
       document.getElementById("buttonDiv"),
       { theme: "outline", size: "large" }
     );
-
   }, []);
   return (
     <>
@@ -139,7 +138,15 @@ export default function Login() {
                     <hr />
                     <div id="buttonDiv"></div>
                   </div>
-
+                  <div
+                    className="fb-login-button"
+                    data-width="20"
+                    data-size="20"
+                    data-button-type="submit"
+                    data-layout=""
+                    data-auto-logout-link="true"
+                    data-use-continue-as="true"
+                  ></div>
                   <p>
                     Dont have an account?{" "}
                     <Link to="/register" className="link-info">

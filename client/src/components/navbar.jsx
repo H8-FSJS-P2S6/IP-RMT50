@@ -10,7 +10,7 @@ initMDB({ Dropdown });
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isPremium, setIsPremium] = useState(false)
+  const [isPremium, setIsPremium] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -24,10 +24,13 @@ export default function Navbar() {
     if (dropdown) {
       new Dropdown(dropdown);
     }
+
+    const storedIsPremium = localStorage.getItem("isPremium");
+    setIsPremium(storedIsPremium === "true");
   }, []);
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("access_token");
     setIsLoggedIn(false);
     navigate("/login");
   };
@@ -36,7 +39,7 @@ export default function Navbar() {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-     const {data} = await axios.patch(
+      const { data } = await axios.patch(
         `http://localhost:3000/isPremium`,
         {},
         {
@@ -45,7 +48,9 @@ export default function Navbar() {
           },
         }
       );
+
       setIsPremium(data.data.isPremium);
+      localStorage.setItem("isPremium", data.data.isPremium);
     } catch (error) {
       console.error(error);
     }
@@ -64,14 +69,15 @@ export default function Navbar() {
           },
         }
       );
-      
+
       const cb = changeStatus;
       window.snap.pay(data.token, {
         onSuccess: function(result) {
           alert("payment success!");
           console.log(result);
           cb();
-          setIsPremium(true)
+          localStorage.setItem("isPremium", true)
+          setIsPremium(true);
         },
       });
     } catch (error) {
@@ -79,7 +85,7 @@ export default function Navbar() {
       Swal.fire({
         title: "Kebanyakan Uang Bang? 🤔",
         text: `Kamu sudah premium 😪!`,
-        icon: "question"
+        icon: "question",
       });
     }
   };
@@ -129,13 +135,14 @@ export default function Navbar() {
           >
             Buy Verify
           </button>
-          {isPremium && (
+          {isPremium ? (
             <img
               src="https://cdn-icons-png.freepik.com/256/11710/11710599.png?semt=ais_hybrid"
               alt="isVervy"
               style={{ width: "25px" }}
             />
-          )}
+          ) : null}
+
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item dropdown">
               <a

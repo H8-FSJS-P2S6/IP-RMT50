@@ -49,14 +49,16 @@ const GeminiChatBot = () => {
       <h2>Gemini Chat Bot</h2>
       <div>
         <label htmlFor="naruto"></label>
-        👉  <input
-          type="text"
-          id="naruto"
-          value={naruto}
-          onChange={handleInputChange}
-        />👈
+            <input
+                type="text"
+                id="naruto"
+                className="form-control"
+                value={naruto}
+                onChange={handleInputChange}
+              />
       </div>
-      <button className="btn btn-info" onClick={handleGeminiAI} disabled={loading || !naruto}>
+      <br />
+      <button className="btn btn-info" onClick={handleGeminiAI} >
         {loading ? "Loading..." : "Submit"}
       </button>
       {error && <p style={{ color: "red" }}>{error}</p>}

@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import CharacterCard from "../components/CharacterCard";
-import PaginationButton from "../components/PaginationButton";
-import PageSize from "../components/PageSize";
-import Navbar from "../components/navbar";
-import "../Css/HomePage.css";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import CharacterCard from '../components/CharacterCard';
+import PaginationButton from '../components/PaginationButton';
+import PageSize from '../components/PageSize';
+import Navbar from '../components/navbar';
+import '../Css/HomePage.css';
+import Footer from '../components/Footer';
 import GeminiChatBot from "../components/ChatBotGemini";
-import Footer from "../components/Footer";
-
 const HomePage = () => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +14,7 @@ const HomePage = () => {
   const [totalCharacters, setTotalCharacters] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showChatModal, setShowChatModal] = useState(false); 
 
   useEffect(() => {
     fetchCharacters();
@@ -25,9 +25,9 @@ const HomePage = () => {
     setError(null);
 
     try {
-      const accessToken = localStorage.getItem("access_token");
+      const accessToken = localStorage.getItem('access_token');
 
-      const { data } = await axios.get("http://localhost:3000/characters", {
+      const { data } = await axios.get('http://localhost:3000/characters', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -64,14 +64,24 @@ const HomePage = () => {
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages || totalPages === 0;
 
+  const openChatModal = () => {
+    setShowChatModal(true);
+  };
+
+  const closeChatModal = () => {
+    setShowChatModal(false);
+  };
+
   return (
     <div>
       <Navbar />
       <div className="container-fluid text-center mx-auto p-0">
         <div className="row justify-content-center">
           <div className="col-md-3">
-            <GeminiChatBot />
           </div>
+    <button className="btn btn-primary" onClick={openChatModal}>
+      Open Chat Bot
+    </button>
           <div className="col-md-8">
             <h2 className="my-4">Character List</h2>
             {loading ? (
@@ -104,15 +114,30 @@ const HomePage = () => {
               />
             </div>
             <div className="mt-3">
-              <PageSize
-                sizes={[10, 20, 50]}
-                onSelectSize={handlePageSizeChange}
-              />
+              <PageSize sizes={[10, 20, 50]} onSelectSize={handlePageSizeChange} />
             </div>
           </div>
         </div>
       </div>
       <Footer />
+
+      <div className={`modal ${showChatModal ? 'show' : ''}`} tabIndex="-1" style={{ display: showChatModal ? 'block' : 'none' }}>
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Gemini Chat Bot</h5>
+              <button type="button" className="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close" onClick={closeChatModal}></button>
+            </div>
+            <div className="modal-body">
+              <p>Tuliskan Apapun yang kamu mau tahu tentang Naruto 😊</p>
+              <GeminiChatBot />
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal" onClick={closeChatModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
